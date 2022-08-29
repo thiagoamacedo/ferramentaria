@@ -41,7 +41,7 @@ telaSobre = Frame(window)
 arquivoFerramentas = 'ferramentas.csv'
 arquivoTecnicos = 'tecnicos.csv'
 arquivoUsuarios = 'usuarios.csv'
-arquivosReservas = 'reservas.csv'
+arquivoReservas = 'reservas.csv'
 usuarioLogado = ''
 
 for frame in (telaLogin, telaPrincipal, telaFerramenta, telaTecnico, telaEmprestimo, telaRelatorioEmprestimo, telaSobre):
@@ -1161,286 +1161,477 @@ def listaDadosTecnico():
 
 # ======== Fim  Cadastro de Tecnicos ===========
 
+# ======== Inicio Tela Emprestimo Backup ==========
+
+# def btnreservarFerramenta():
+#     telaEmprestimo.btnReservar.configure(state="disabled")
+#     telaEmprestimo.btnConfirmar.configure(state="normal")
+#     telaEmprestimo.btnCancelar.configure(state="normal")
+# 
+#     telaEmprestimo.entIDferramenta.configure(state="normal")
+#     telaEmprestimo.entCPFemprestimo.configure(state="normal")
+#     telaEmprestimo.btnDataDevolucao.configure(state="normal")
+#     telaEmprestimo.btnDataRetirada.configure(state="normal")
+#     telaEmprestimo.entNomeEmprestimo.configure(state="normal")
+#     
+#     telaEmprestimo.entIDferramenta.delete(0, END)
+#     telaEmprestimo.entCPFemprestimo.delete(0, END)
+#     telaEmprestimo.entNomeEmprestimo.delete(0, END)
+#     telaEmprestimo.entDataRetirada.delete(0, END)
+#     telaEmprestimo.entDataDevolucao.delete(0, END)
+#     
+# def cancelarReserva():
+#     telaEmprestimo.btnReservar.configure(state="normal")
+#     telaEmprestimo.btnConfirmar.configure(state="disabled")
+#     telaEmprestimo.btnCancelar.configure(state="disabled")
+# 
+#     telaEmprestimo.entIDferramenta.configure(state="disabled")
+#     telaEmprestimo.entCPFemprestimo.configure(state="disabled")
+#     telaEmprestimo.btnDataDevolucao.configure(state="disabled")
+#     telaEmprestimo.btnDataRetirada.configure(state="disabled")
+#     telaEmprestimo.entNomeEmprestimo.configure(state="disabled")
+#     
+#     telaEmprestimo.entIDferramenta.delete(0, END)
+#     telaEmprestimo.entCPFemprestimo.delete(0, END)
+#     telaEmprestimo.entNomeEmprestimo.delete(0, END)
+#     telaEmprestimo.entDataRetirada.delete(0, END)
+#     telaEmprestimo.entDataDevolucao.delete(0, END)
+#     
+#     telaEmprestimo.btnInserirRetirada.place(relx=1.800, rely=1.900, height=30, width=70)
+#     calendarioRetirada.place(relx=1.800, rely=1.800)
+#     telaEmprestimo.lblHorarioRetirada.place(relx=1.800, rely=1.800)
+#     telaEmprestimo.entHorarioRetirada.place(relx=1.800, rely=1.800, height=25, width=78)
+#     telaEmprestimo.entDataRetirada.configure(state="disabled")
+#     
+#     calendarioDevolucao.place(relx=1.800, rely=1.800)
+#     telaEmprestimo.btnInserirDevolucao.place(relx=1.800, rely=1.800, height=30, width=70)
+#     telaEmprestimo.lblHorarioDevolucao.place(relx=1.800, rely=1.800)
+#     telaEmprestimo.entHorarioDevolucao.place(relx=1.800, rely=1.800, height=25, width=78)
+#     telaEmprestimo.entDataDevolucao.configure(state="disabled")
+#     
+# def inserirnomeTecnico(event):
+#     global nome
+#     df = pd.read_csv("tecnicos.csv")
+#     cpfpegar = str(telaEmprestimo.entCPFemprestimo.get())
+#     cpf = df[df.CPF==cpfpegar]
+#     nome1 = cpf['Nome'].astype(str)
+#     nome2 = list(nome1)
+#     nome = nome2[0]
+#     print(nome)
+#     
+#     telaEmprestimo.entNomeEmprestimo.configure(state="normal")
+#     telaEmprestimo.entNomeEmprestimo.delete(0,'end')
+#     telaEmprestimo.entNomeEmprestimo.insert(0,nome)
+#     telaEmprestimo.entNomeEmprestimo.configure(state="disabled")
+#     
+# def calendarioabrirRetirada():
+#     global calendarioRetirada, btnInserirRetirada
+#     calendarioRetirada = Calendar(telaEmprestimo,fg='gray75',bg='blue',font='Bahnschrift',locate='pt_br')
+#     calendarioRetirada.place(relx=0.408, rely=0.475)
+#     
+#     telaEmprestimo.btnInserirRetirada = Button(telaEmprestimo)
+#     telaEmprestimo.btnInserirRetirada.place(relx=0.5335, rely=0.699, height=30, width=70)
+#     telaEmprestimo.btnInserirRetirada.configure(activebackground="beige")
+#     telaEmprestimo.btnInserirRetirada.configure(activeforeground="black")
+#     telaEmprestimo.btnInserirRetirada.configure(background="#d9d9d9")
+#     telaEmprestimo.btnInserirRetirada.configure(command=lambda: FecharcalendarioRetirada())
+#     telaEmprestimo.btnInserirRetirada.configure(compound='left')
+#     telaEmprestimo.btnInserirRetirada.configure(disabledforeground="#a3a3a3")
+#     telaEmprestimo.btnInserirRetirada.configure(foreground="#000000")
+#     telaEmprestimo.btnInserirRetirada.configure(highlightbackground="#d9d9d9")
+#     telaEmprestimo.btnInserirRetirada.configure(highlightcolor="black")
+#     telaEmprestimo.btnInserirRetirada.configure(pady="0")
+#     telaEmprestimo.btnInserirRetirada.configure(text='''Inserir''')
+#     
+#     telaEmprestimo.lblHorarioRetirada = Label(telaEmprestimo)
+#     telaEmprestimo.lblHorarioRetirada.place(relx=0.408, rely=0.700)
+#     telaEmprestimo.lblHorarioRetirada.configure(anchor='w')
+#     telaEmprestimo.lblHorarioRetirada.configure(compound='left')
+#     telaEmprestimo.lblHorarioRetirada.configure(disabledforeground="#a3a3a3")
+#     telaEmprestimo.lblHorarioRetirada.configure(foreground="#000000")
+#     telaEmprestimo.lblHorarioRetirada.configure(text='''HORÁRIO:''')
+#     telaEmprestimo.lblHorarioRetirada.configure(font=("Bahnschrift",'13'))
+#     
+#     telaEmprestimo.entHorarioRetirada = Entry(telaEmprestimo)
+#     telaEmprestimo.entHorarioRetirada.place(relx=0.455, rely=0.702, height=25, width=78)
+#     telaEmprestimo.entHorarioRetirada.configure(background="white")
+#     telaEmprestimo.entHorarioRetirada.configure(disabledforeground="#a3a3a3")
+#     telaEmprestimo.entHorarioRetirada.configure(font=("Bahnschrift",'11'))
+#     telaEmprestimo.entHorarioRetirada.configure(foreground="#000000")
+#     telaEmprestimo.entHorarioRetirada.configure(insertbackground="black")
+#     telaEmprestimo.entHorarioRetirada.bind('<KeyRelease>',FormatarHoraRetirada)
+#     
+# def FecharcalendarioRetirada():
+#     horario_formatar = telaEmprestimo.entHorarioRetirada.get().split(':')
+#     
+#     if telaEmprestimo.entHorarioRetirada.get()=='' or len(telaEmprestimo.entHorarioRetirada.get())!=5 or int(horario_formatar[0])>=24 or int(horario_formatar[1])>=60:
+#         messagebox.showerror('','Horário inválido')
+#     else:
+#         telaEmprestimo.entDataRetirada.configure(state="normal")
+#         data_da_retirada = calendarioRetirada.get_date()
+#         hora_retirada = telaEmprestimo.entHorarioRetirada.get()
+#         telaEmprestimo.entDataRetirada.delete(0,'end')
+#         telaEmprestimo.entDataRetirada.insert(0,data_da_retirada)
+#         telaEmprestimo.entDataRetirada.insert(11,' ')
+#         telaEmprestimo.entDataRetirada.insert(12,hora_retirada)
+#         
+#         telaEmprestimo.btnInserirRetirada.place(relx=1.800, rely=1.900, height=30, width=70)
+#         calendarioRetirada.place(relx=1.800, rely=1.800)
+#         telaEmprestimo.lblHorarioRetirada.place(relx=1.800, rely=1.800)
+#         telaEmprestimo.entHorarioRetirada.place(relx=1.800, rely=1.800, height=25, width=78)
+#         telaEmprestimo.entDataRetirada.configure(state="disabled")
+#     
+# def calendarioabrirDevolucao():
+#     global calendarioDevolucao
+#     calendarioDevolucao = Calendar(telaEmprestimo,fg='gray75',bg='blue',font='Bahnschrift',locate='pt_br')
+#     calendarioDevolucao.place(relx=0.505, rely=0.475)
+# 
+# 
+#     telaEmprestimo.btnInserirDevolucao = Button(telaEmprestimo)
+#     telaEmprestimo.btnInserirDevolucao.place(relx=0.6305, rely=0.700, height=30, width=70)
+#     telaEmprestimo.btnInserirDevolucao.configure(activebackground="beige")
+#     telaEmprestimo.btnInserirDevolucao.configure(activeforeground="black")
+#     telaEmprestimo.btnInserirDevolucao.configure(background="#d9d9d9")
+#     telaEmprestimo.btnInserirDevolucao.configure(command=lambda: FecharcalendarioDevolucao())
+#     telaEmprestimo.btnInserirDevolucao.configure(compound='left')
+#     telaEmprestimo.btnInserirDevolucao.configure(disabledforeground="#a3a3a3")
+#     telaEmprestimo.btnInserirDevolucao.configure(foreground="#000000")
+#     telaEmprestimo.btnInserirDevolucao.configure(highlightbackground="#d9d9d9")
+#     telaEmprestimo.btnInserirDevolucao.configure(highlightcolor="black")
+#     telaEmprestimo.btnInserirDevolucao.configure(pady="0")
+#     telaEmprestimo.btnInserirDevolucao.configure(text='''Inserir''')
+#     
+#     telaEmprestimo.lblHorarioDevolucao = Label(telaEmprestimo)
+#     telaEmprestimo.lblHorarioDevolucao.place(relx=0.505, rely=0.700)
+#     telaEmprestimo.lblHorarioDevolucao.configure(anchor='w')
+#     telaEmprestimo.lblHorarioDevolucao.configure(compound='left')
+#     telaEmprestimo.lblHorarioDevolucao.configure(disabledforeground="#a3a3a3")
+#     telaEmprestimo.lblHorarioDevolucao.configure(foreground="#000000")
+#     telaEmprestimo.lblHorarioDevolucao.configure(text='''HORÁRIO:''')
+#     telaEmprestimo.lblHorarioDevolucao.configure(font=("Bahnschrift",'13'))
+#     
+#     telaEmprestimo.entHorarioDevolucao = Entry(telaEmprestimo)
+#     telaEmprestimo.entHorarioDevolucao.place(relx=0.552, rely=0.702, height=25, width=78)
+#     telaEmprestimo.entHorarioDevolucao.configure(background="white")
+#     telaEmprestimo.entHorarioDevolucao.configure(disabledforeground="#a3a3a3")
+#     telaEmprestimo.entHorarioDevolucao.configure(font=("Bahnschrift",'11'))
+#     telaEmprestimo.entHorarioDevolucao.configure(foreground="#000000")
+#     telaEmprestimo.entHorarioDevolucao.configure(insertbackground="black")
+#     telaEmprestimo.entHorarioDevolucao.bind('<KeyRelease>',FormatarHoraDevolucao)
+# 
+# def FecharcalendarioDevolucao():
+#     horario_formatar = telaEmprestimo.entHorarioDevolucao.get().split(':')
+#     print(horario_formatar)
+#     
+#     if telaEmprestimo.entHorarioDevolucao.get()=='' or len(telaEmprestimo.entHorarioDevolucao.get())!=5 or int(horario_formatar[0])>=24 or int(horario_formatar[1])>=60:
+#         messagebox.showerror('','Horário inválido')
+#     else:
+#         telaEmprestimo.entDataDevolucao.configure(state="normal")
+#         data_da_devolucao = calendarioDevolucao.get_date()
+#         hora_devolucao = telaEmprestimo.entHorarioDevolucao.get()
+#         telaEmprestimo.entDataDevolucao.delete(0,'end')
+#         telaEmprestimo.entDataDevolucao.insert(0,data_da_devolucao)
+#         telaEmprestimo.entDataDevolucao.insert(11,' ')
+#         telaEmprestimo.entDataDevolucao.insert(12,hora_devolucao)
+#         
+#         calendarioDevolucao.place(relx=1.800, rely=1.800)
+#         telaEmprestimo.btnInserirDevolucao.place(relx=1.800, rely=1.800, height=30, width=70)
+#         telaEmprestimo.lblHorarioDevolucao.place(relx=1.800, rely=1.800)
+#         telaEmprestimo.entHorarioDevolucao.place(relx=1.800, rely=1.800, height=25, width=78)
+#         telaEmprestimo.entDataDevolucao.configure(state="disabled")
+# 
+# def FormatarHoraRetirada(event=None):
+#     if len(telaEmprestimo.entHorarioRetirada.get())==2:
+#         telaEmprestimo.entHorarioRetirada.insert(2,':')
+#         
+#     if len(telaEmprestimo.entHorarioRetirada.get())==6:
+#         telaEmprestimo.entHorarioRetirada.delete(5,'end')
+# 
+# def FormatarHoraDevolucao(event=None):
+#     if len(telaEmprestimo.entHorarioDevolucao.get())==2:
+#         telaEmprestimo.entHorarioDevolucao.insert(2,':')
+#     if len(telaEmprestimo.entHorarioDevolucao.get())==6:
+#         telaEmprestimo.entHorarioDevolucao.delete(5,'end')
+# 
+# def reservarFerramenta():
+#     data_retirada = telaEmprestimo.entDataRetirada.get()
+#     data_e_hora_retirada = datetime.strptime(data_retirada, "%d/%m/%Y %H:%M")
+#     
+#     data_devolucao = telaEmprestimo.entDataDevolucao.get()
+#     data_e_hora_devolucao = datetime.strptime(data_devolucao, "%d/%m/%Y %H:%M")
+#     
+#     df = pd.read_csv("ferramentas.csv")
+#     id_ferramenta = df[df.ID==int(telaEmprestimo.entIDferramenta.get())]
+#     numero1 = id_ferramenta['TempoMaximoReserva']
+#     numero2 = list(numero1)
+#     numero3= str(numero2).replace(']','')
+#     numero4 = numero3.replace('[','')
+# 
+#     tempo_max_reserva = float(numero4)
+#     
+#     time_1 = timedelta(days=0, hours=0)
+#     time_2 = timedelta(hours=tempo_max_reserva)
+#     print(time_2)
+#     data_devolucao_max = time_1+time_2
+#     print(data_devolucao_max)
+#     data_max = data_devolucao_max + data_e_hora_retirada
+#     print(data_max)
+#     
+#     if data_e_hora_devolucao>data_max:
+#         messagebox.showerror('','Data de devolução inválida')
+#     # elif data_e_hora_devolucao<=data_max:
+#     #     ################ COLOCAR AQUI O CÓDIGO PARA RESERVAR NO CSV ################
+# 
+# def gravarReserva():
+#     telaEmprestimo.entIDferramenta.configure(state="normal")
+# 
+#     df = pd.read_csv(arquivoReservas, na_filter=False)
+#     df['ID'] = df['ID'].astype(int)
+#     chave = telaEmprestimo.entID.get()
+# 
+#     coluna = 'ID do Emprestimo'
+#     valor = telaEmprestimo.entID.get()
+#     df.loc[int(chave)-1, coluna] = valor
+# 
+#     coluna = 'Id Ferramenta'
+#     valor = telaEmprestimo.entIDferramenta.get()
+#     tamanhoCampo_1 = 30
+#     df.loc[int(chave)-1, coluna] = valor[0:tamanhoCampo_1]
+# 
+#     coluna = 'CPF Técnico'
+#     valor = telaEmprestimo.entCPFemprestimo.get()
+#     tamanhoCampo_1 = 30
+#     df.loc[int(chave)-1, coluna] = valor[0:tamanhoCampo_1]
+# 
+#     coluna = 'Nome'
+#     valor = telaEmprestimo.entNomeEmprestimo.get()
+#     tamanhoCampo_1 = 15
+#     df.loc[int(chave)-1, coluna] = valor[0:tamanhoCampo_1]
+# 
+#     coluna = 'Data Retirada'
+#     valor= telaEmprestimo.entDataRetirada.get()
+#     tamanhoCampo_1 = 25
+#     df.loc[int(chave)-1, coluna] = valor[0:tamanhoCampo_1]
+# 
+#     coluna = 'Data Devolução'
+#     valor = telaEmprestimo.entDataDevolucao.get()
+#     tamanhoCampo_1 = 25
+#     df.loc[int(chave)-1, coluna] = valor[0:tamanhoCampo_1]
+# 
+#     df['ID'] = df['ID'].astype(int)
+#     df.to_csv(arquivoReservas, index=False)
+# 
+# def formatarCPFReserva(event=None):
+#     text = telaEmprestimo.entCPFemprestimo.get().replace(".", "").replace("-", "")[:11]
+#     new_text = ""
+# 
+#     if event.keysym.lower() == "backspace":
+#         return
+# 
+#     for index in range(len(text)):
+# 
+#         if not text[index] in "0123456789":
+#             continue
+#         if index in [2, 5]:
+#             new_text += text[index] + "."
+#         elif index == 8:
+#             new_text += text[index] + "-"
+#         else:
+#             new_text += text[index]
+# 
+#     telaEmprestimo.entCPFemprestimo.delete(0, "end")
+#     telaEmprestimo.entCPFemprestimo.insert(0, new_text)
+# 
+# menuTelaEmprestimoCadastro = Menubutton(telaEmprestimo, text='Cadastro', activebackground='gray')
+# menuTelaEmprestimoCadastro.grid(row=0, column=0)
+# menuTelaEmprestimoCadastro.menu = Menu(menuTelaEmprestimoCadastro, tearoff=0)
+# menuTelaEmprestimoCadastro["menu"] = menuTelaEmprestimoCadastro.menu
+# menuTelaEmprestimoCadastro.menu.add_command(label='Principal', command=lambda: show_frame(telaPrincipal))
+# menuTelaEmprestimoCadastro.menu.add_command(label='Ferramentas', command=lambda: show_frame(telaFerramenta))
+# menuTelaEmprestimoCadastro.menu.add_command(label='Técnicos Responsáveis', command=lambda: show_frame(telaTecnico))
+# 
+# menuTelaEmprestimoMovimentacao = Menubutton(telaEmprestimo, text='Movimentação', activebackground='gray')
+# menuTelaEmprestimoMovimentacao.grid(row=0, column=1)
+# menuTelaEmprestimoMovimentacao.menu = Menu(menuTelaEmprestimoMovimentacao, tearoff=0)
+# menuTelaEmprestimoMovimentacao["menu"] = menuTelaEmprestimoMovimentacao.menu
+# menuTelaEmprestimoMovimentacao.menu.add_command(label='Empréstimo de Ferramentas', command=lambda: show_frame(telaEmprestimo))
+# 
+# menuTelaEmprestimoRelatorios = Menubutton(telaEmprestimo, text='Relatórios', activebackground='gray')
+# menuTelaEmprestimoRelatorios.grid(row=0, column=2)
+# menuTelaEmprestimoRelatorios.menu = Menu(menuTelaEmprestimoRelatorios, tearoff=0)
+# menuTelaEmprestimoRelatorios["menu"] = menuTelaEmprestimoRelatorios.menu
+# menuTelaEmprestimoRelatorios.menu.add_command(label='Empréstimo de Ferramentas', command=lambda: show_frame(telaRelatorioEmprestimo))
+# 
+# menuTelaPrincipalAjuda = Menubutton(telaEmprestimo, text='Ajuda', activebackground='gray')
+# menuTelaPrincipalAjuda.grid(row=0, column=3)
+# menuTelaPrincipalAjuda.menu = Menu(menuTelaPrincipalAjuda, tearoff=0)
+# menuTelaPrincipalAjuda["menu"] = menuTelaPrincipalAjuda.menu
+# menuTelaPrincipalAjuda.menu.add_command(label='Sobre', command=lambda: show_frame(telaSobre))
+# 
+# 
+# telaEmprestimo.btnReservar = Button(telaEmprestimo)
+# telaEmprestimo.btnReservar.place(relx=0.420, rely=0.280, height=30, width=70)
+# telaEmprestimo.btnReservar.configure(activebackground="beige")
+# telaEmprestimo.btnReservar.configure(activeforeground="black")
+# telaEmprestimo.btnReservar.configure(background="#d9d9d9")
+# telaEmprestimo.btnReservar.configure(command=lambda: btnreservarFerramenta())
+# telaEmprestimo.btnReservar.configure(compound='left')
+# telaEmprestimo.btnReservar.configure(disabledforeground="#a3a3a3")
+# telaEmprestimo.btnReservar.configure(foreground="#000000")
+# telaEmprestimo.btnReservar.configure(highlightbackground="#d9d9d9")
+# telaEmprestimo.btnReservar.configure(highlightcolor="black")
+# telaEmprestimo.btnReservar.configure(pady="0")
+# telaEmprestimo.btnReservar.configure(text='''Reservar''')
+# 
+# 
+# telaEmprestimo.btnConfirmar = Button(telaEmprestimo)
+# telaEmprestimo.btnConfirmar.place(relx=0.47, rely=0.280, height=30, width=70)
+# telaEmprestimo.btnConfirmar.configure(activebackground="beige")
+# telaEmprestimo.btnConfirmar.configure(activeforeground="black")
+# telaEmprestimo.btnConfirmar.configure(background="#d9d9d9")
+# telaEmprestimo.btnConfirmar.configure(command=lambda: gravarReserva())
+# telaEmprestimo.btnConfirmar.configure(compound='left')
+# telaEmprestimo.btnConfirmar.configure(disabledforeground="#a3a3a3")
+# telaEmprestimo.btnConfirmar.configure(foreground="#000000")
+# telaEmprestimo.btnConfirmar.configure(highlightbackground="#d9d9d9")
+# telaEmprestimo.btnConfirmar.configure(highlightcolor="black")
+# telaEmprestimo.btnConfirmar.configure(pady="0")
+# telaEmprestimo.btnConfirmar.configure(text='''Confirmar''')
+# telaEmprestimo.btnConfirmar.configure(state="disabled")
+# 
+# telaEmprestimo.btnCancelar = Button(telaEmprestimo)
+# telaEmprestimo.btnCancelar.place(relx=0.52, rely=0.280, height=30, width=70)
+# telaEmprestimo.btnCancelar.configure(activebackground="beige")
+# telaEmprestimo.btnCancelar.configure(activeforeground="black")
+# telaEmprestimo.btnCancelar.configure(background="#d9d9d9")
+# telaEmprestimo.btnCancelar.configure(command=lambda: cancelarReserva())
+# telaEmprestimo.btnCancelar.configure(compound='left')
+# telaEmprestimo.btnCancelar.configure(disabledforeground="#a3a3a3")
+# telaEmprestimo.btnCancelar.configure(foreground="#000000")
+# telaEmprestimo.btnCancelar.configure(highlightbackground="#d9d9d9")
+# telaEmprestimo.btnCancelar.configure(highlightcolor="black")
+# telaEmprestimo.btnCancelar.configure(pady="0")
+# telaEmprestimo.btnCancelar.configure(text='''Cancelar''')
+# telaEmprestimo.btnCancelar.configure(state="disabled")
+# 
+# 
+# telaEmprestimo.Label1 = Label(telaEmprestimo)
+# telaEmprestimo.Label1.place(relx=0.0, rely=0.021, height=63, width=1920)
+# telaEmprestimo.Label1.configure(background="#949494")
+# telaEmprestimo.Label1.configure(anchor='center')
+# telaEmprestimo.Label1.configure(compound='left')
+# telaEmprestimo.Label1.configure(disabledforeground="#a3a3a3")
+# telaEmprestimo.Label1.configure(font="-family {Segoe UI} -size 14 -weight bold")
+# telaEmprestimo.Label1.configure(foreground="#000000")
+# telaEmprestimo.Label1.configure(highlightcolor="#ffffff")
+# telaEmprestimo.Label1.configure(text='''Tela de Emprestimo de Ferramenta''')
+# 
+# telaEmprestimo.lblIDferramenta = Label(telaEmprestimo)
+# telaEmprestimo.lblIDferramenta.place(relx=0.354, rely=0.355)
+# telaEmprestimo.lblIDferramenta.configure(anchor='w')
+# telaEmprestimo.lblIDferramenta.configure(compound='left')
+# telaEmprestimo.lblIDferramenta.configure(disabledforeground="#a3a3a3")
+# telaEmprestimo.lblIDferramenta.configure(foreground="#000000")
+# telaEmprestimo.lblIDferramenta.configure(text='''ID da ferramenta:''')
+# telaEmprestimo.entIDferramenta = Entry(telaEmprestimo)
+# telaEmprestimo.entIDferramenta.place(relx=0.408, rely=0.355, height=20, relwidth=0.163)
+# telaEmprestimo.entIDferramenta.configure(background="white")
+# telaEmprestimo.entIDferramenta.configure(disabledforeground="#a3a3a3")
+# telaEmprestimo.entIDferramenta.configure(font="TkFixedFont")
+# telaEmprestimo.entIDferramenta.configure(foreground="#000000")
+# telaEmprestimo.entIDferramenta.configure(insertbackground="black")
+# telaEmprestimo.entIDferramenta.configure(state="disabled")
+# 
+# telaEmprestimo.lblCPFemprestimo = Label(telaEmprestimo)
+# telaEmprestimo.lblCPFemprestimo.place(relx=0.354, rely=0.395)
+# telaEmprestimo.lblCPFemprestimo.configure(anchor='w')
+# telaEmprestimo.lblCPFemprestimo.configure(compound='left')
+# telaEmprestimo.lblCPFemprestimo.configure(disabledforeground="#a3a3a3")
+# telaEmprestimo.lblCPFemprestimo.configure(foreground="#000000")
+# telaEmprestimo.lblCPFemprestimo.configure(text='''CPF do Técnico:''')
+# telaEmprestimo.entCPFemprestimo = Entry(telaEmprestimo)
+# telaEmprestimo.entCPFemprestimo.place(relx=0.408, rely=0.395, height=20, relwidth=0.163)
+# telaEmprestimo.entCPFemprestimo.configure(background="white")
+# telaEmprestimo.entCPFemprestimo.configure(disabledforeground="#a3a3a3")
+# telaEmprestimo.entCPFemprestimo.configure(font="TkFixedFont")
+# telaEmprestimo.entCPFemprestimo.configure(foreground="#000000")
+# telaEmprestimo.entCPFemprestimo.configure(insertbackground="black")
+# telaEmprestimo.entCPFemprestimo.configure(state="disabled")
+# telaEmprestimo.entCPFemprestimo.bind("<FocusOut>",inserirnomeTecnico)
+# telaEmprestimo.entCPFemprestimo.bind("<KeyRelease>", formatarCPFReserva)
+# 
+# 
+# telaEmprestimo.lblNomeEmprestimo = Label(telaEmprestimo)
+# telaEmprestimo.lblNomeEmprestimo.place(relx=0.354, rely=0.435, height=21, width=60)
+# telaEmprestimo.lblNomeEmprestimo.configure(anchor='w')
+# telaEmprestimo.lblNomeEmprestimo.configure(compound='left')
+# telaEmprestimo.lblNomeEmprestimo.configure(disabledforeground="#a3a3a3")
+# telaEmprestimo.lblNomeEmprestimo.configure(foreground="#000000")
+# telaEmprestimo.lblNomeEmprestimo.configure(text='''Nome:''')
+# telaEmprestimo.entNomeEmprestimo = Entry(telaEmprestimo)
+# telaEmprestimo.entNomeEmprestimo.place(relx=0.408, rely=0.435, height=20, relwidth=0.163)
+# telaEmprestimo.entNomeEmprestimo.configure(background="white")
+# telaEmprestimo.entNomeEmprestimo.configure(disabledforeground="#a3a3a3")
+# telaEmprestimo.entNomeEmprestimo.configure(font="TkFixedFont")
+# telaEmprestimo.entNomeEmprestimo.configure(foreground="#000000")
+# telaEmprestimo.entNomeEmprestimo.configure(insertbackground="black")
+# telaEmprestimo.entNomeEmprestimo.configure(state="disabled")
+# 
+# 
+# 
+# telaEmprestimo.btnDataRetirada = Button(telaEmprestimo)
+# telaEmprestimo.btnDataRetirada.place(relx=0.421, rely=0.475, height=30, width=70)
+# telaEmprestimo.btnDataRetirada.configure(activebackground="beige")
+# telaEmprestimo.btnDataRetirada.configure(activeforeground="black")
+# telaEmprestimo.btnDataRetirada.configure(background="#d9d9d9")
+# telaEmprestimo.btnDataRetirada.configure(command=lambda: calendarioabrirRetirada())
+# telaEmprestimo.btnDataRetirada.configure(compound='left')
+# telaEmprestimo.btnDataRetirada.configure(disabledforeground="#a3a3a3")
+# telaEmprestimo.btnDataRetirada.configure(foreground="#000000")
+# telaEmprestimo.btnDataRetirada.configure(highlightbackground="#d9d9d9")
+# telaEmprestimo.btnDataRetirada.configure(highlightcolor="black")
+# telaEmprestimo.btnDataRetirada.configure(pady="0")
+# telaEmprestimo.btnDataRetirada.configure(text='''Retirada''')
+# telaEmprestimo.btnDataRetirada.configure(state="disabled")
+# 
+# telaEmprestimo.entDataRetirada = Entry(telaEmprestimo)
+# telaEmprestimo.entDataRetirada.place(relx=0.408, rely=0.515, height=25, width=120)
+# telaEmprestimo.entDataRetirada.configure(background="white")
+# telaEmprestimo.entDataRetirada.configure(disabledforeground="#a3a3a3")
+# telaEmprestimo.entDataRetirada.configure(font=("Bahnschrift",'11'))
+# telaEmprestimo.entDataRetirada.configure(foreground="#000000")
+# telaEmprestimo.entDataRetirada.configure(insertbackground="black")
+# telaEmprestimo.entDataRetirada.configure(state="disabled")
+# 
+# 
+# telaEmprestimo.btnDataDevolucao = Button(telaEmprestimo)
+# telaEmprestimo.btnDataDevolucao.place(relx=0.520, rely=0.475, height=30, width=70)
+# telaEmprestimo.btnDataDevolucao.configure(activebackground="beige")
+# telaEmprestimo.btnDataDevolucao.configure(activeforeground="black")
+# telaEmprestimo.btnDataDevolucao.configure(background="#d9d9d9")
+# telaEmprestimo.btnDataDevolucao.configure(command=lambda: calendarioabrirDevolucao())
+# telaEmprestimo.btnDataDevolucao.configure(compound='left')
+# telaEmprestimo.btnDataDevolucao.configure(disabledforeground="#a3a3a3")
+# telaEmprestimo.btnDataDevolucao.configure(foreground="#000000")
+# telaEmprestimo.btnDataDevolucao.configure(highlightbackground="#d9d9d9")
+# telaEmprestimo.btnDataDevolucao.configure(highlightcolor="black")
+# telaEmprestimo.btnDataDevolucao.configure(pady="0")
+# telaEmprestimo.btnDataDevolucao.configure(text='''Devolução''')
+# telaEmprestimo.btnDataDevolucao.configure(state="disabled")
+# 
+# telaEmprestimo.entDataDevolucao = Entry(telaEmprestimo)
+# telaEmprestimo.entDataDevolucao.place(relx=0.507, rely=0.515, height=25, width=120)
+# telaEmprestimo.entDataDevolucao.configure(background="white")
+# telaEmprestimo.entDataDevolucao.configure(disabledforeground="#a3a3a3")
+# telaEmprestimo.entDataDevolucao.configure(font=("Bahnschrift",'11'))
+# telaEmprestimo.entDataDevolucao.configure(foreground="#000000")
+# telaEmprestimo.entDataDevolucao.configure(insertbackground="black")
+# telaEmprestimo.entDataDevolucao.configure(state="disabled")
+# 
+# 
+# ======== Fim Tela Emprestimo Backup ==========
+
 # ======== Inicio Tela Emprestimo ==========
-
-def btnreservarFerramenta():
-    telaEmprestimo.btnReservar.configure(state="disabled")
-    telaEmprestimo.btnConfirmar.configure(state="normal")
-    telaEmprestimo.btnCancelar.configure(state="normal")
-
-    telaEmprestimo.entIDferramenta.configure(state="normal")
-    telaEmprestimo.entCPFemprestimo.configure(state="normal")
-    telaEmprestimo.btnDataDevolucao.configure(state="normal")
-    telaEmprestimo.btnDataRetirada.configure(state="normal")
-    telaEmprestimo.entNomeEmprestimo.configure(state="normal")
-    
-    telaEmprestimo.entIDferramenta.delete(0, END)
-    telaEmprestimo.entCPFemprestimo.delete(0, END)
-    telaEmprestimo.entNomeEmprestimo.delete(0, END)
-    telaEmprestimo.entDataRetirada.delete(0, END)
-    telaEmprestimo.entDataDevolucao.delete(0, END)
-    
-def cancelarReserva():
-    telaEmprestimo.btnReservar.configure(state="normal")
-    telaEmprestimo.btnConfirmar.configure(state="disabled")
-    telaEmprestimo.btnCancelar.configure(state="disabled")
-
-    telaEmprestimo.entIDferramenta.configure(state="disabled")
-    telaEmprestimo.entCPFemprestimo.configure(state="disabled")
-    telaEmprestimo.btnDataDevolucao.configure(state="disabled")
-    telaEmprestimo.btnDataRetirada.configure(state="disabled")
-    telaEmprestimo.entNomeEmprestimo.configure(state="disabled")
-    
-    telaEmprestimo.entIDferramenta.delete(0, END)
-    telaEmprestimo.entCPFemprestimo.delete(0, END)
-    telaEmprestimo.entNomeEmprestimo.delete(0, END)
-    telaEmprestimo.entDataRetirada.delete(0, END)
-    telaEmprestimo.entDataDevolucao.delete(0, END)
-    
-    telaEmprestimo.btnInserirRetirada.place(relx=1.800, rely=1.900, height=30, width=70)
-    calendarioRetirada.place(relx=1.800, rely=1.800)
-    telaEmprestimo.lblHorarioRetirada.place(relx=1.800, rely=1.800)
-    telaEmprestimo.entHorarioRetirada.place(relx=1.800, rely=1.800, height=25, width=78)
-    telaEmprestimo.entDataRetirada.configure(state="disabled")
-    
-    calendarioDevolucao.place(relx=1.800, rely=1.800)
-    telaEmprestimo.btnInserirDevolucao.place(relx=1.800, rely=1.800, height=30, width=70)
-    telaEmprestimo.lblHorarioDevolucao.place(relx=1.800, rely=1.800)
-    telaEmprestimo.entHorarioDevolucao.place(relx=1.800, rely=1.800, height=25, width=78)
-    telaEmprestimo.entDataDevolucao.configure(state="disabled")
-    
-def inserirnomeTecnico(event):
-    global nome
-    df = pd.read_csv("tecnicos.csv")
-    cpfpegar = str(telaEmprestimo.entCPFemprestimo.get())
-    cpf = df[df.CPF==cpfpegar]
-    nome1 = cpf['Nome'].astype(str)
-    nome2 = list(nome1)
-    nome = nome2[0]
-    print(nome)
-    
-    telaEmprestimo.entNomeEmprestimo.configure(state="normal")
-    telaEmprestimo.entNomeEmprestimo.delete(0,'end')
-    telaEmprestimo.entNomeEmprestimo.insert(0,nome)
-    telaEmprestimo.entNomeEmprestimo.configure(state="disabled")
-    
-def calendarioabrirRetirada():
-    global calendarioRetirada, btnInserirRetirada
-    calendarioRetirada = Calendar(telaEmprestimo,fg='gray75',bg='blue',font='Bahnschrift',locate='pt_br')
-    calendarioRetirada.place(relx=0.408, rely=0.475)
-    
-    telaEmprestimo.btnInserirRetirada = Button(telaEmprestimo)
-    telaEmprestimo.btnInserirRetirada.place(relx=0.5335, rely=0.699, height=30, width=70)
-    telaEmprestimo.btnInserirRetirada.configure(activebackground="beige")
-    telaEmprestimo.btnInserirRetirada.configure(activeforeground="black")
-    telaEmprestimo.btnInserirRetirada.configure(background="#d9d9d9")
-    telaEmprestimo.btnInserirRetirada.configure(command=lambda: FecharcalendarioRetirada())
-    telaEmprestimo.btnInserirRetirada.configure(compound='left')
-    telaEmprestimo.btnInserirRetirada.configure(disabledforeground="#a3a3a3")
-    telaEmprestimo.btnInserirRetirada.configure(foreground="#000000")
-    telaEmprestimo.btnInserirRetirada.configure(highlightbackground="#d9d9d9")
-    telaEmprestimo.btnInserirRetirada.configure(highlightcolor="black")
-    telaEmprestimo.btnInserirRetirada.configure(pady="0")
-    telaEmprestimo.btnInserirRetirada.configure(text='''Inserir''')
-    
-    telaEmprestimo.lblHorarioRetirada = Label(telaEmprestimo)
-    telaEmprestimo.lblHorarioRetirada.place(relx=0.408, rely=0.700)
-    telaEmprestimo.lblHorarioRetirada.configure(anchor='w')
-    telaEmprestimo.lblHorarioRetirada.configure(compound='left')
-    telaEmprestimo.lblHorarioRetirada.configure(disabledforeground="#a3a3a3")
-    telaEmprestimo.lblHorarioRetirada.configure(foreground="#000000")
-    telaEmprestimo.lblHorarioRetirada.configure(text='''HORÁRIO:''')
-    telaEmprestimo.lblHorarioRetirada.configure(font=("Bahnschrift",'13'))
-    
-    telaEmprestimo.entHorarioRetirada = Entry(telaEmprestimo)
-    telaEmprestimo.entHorarioRetirada.place(relx=0.455, rely=0.702, height=25, width=78)
-    telaEmprestimo.entHorarioRetirada.configure(background="white")
-    telaEmprestimo.entHorarioRetirada.configure(disabledforeground="#a3a3a3")
-    telaEmprestimo.entHorarioRetirada.configure(font=("Bahnschrift",'11'))
-    telaEmprestimo.entHorarioRetirada.configure(foreground="#000000")
-    telaEmprestimo.entHorarioRetirada.configure(insertbackground="black")
-    telaEmprestimo.entHorarioRetirada.bind('<KeyRelease>',FormatarHoraRetirada)
-    
-def FecharcalendarioRetirada():
-    horario_formatar = telaEmprestimo.entHorarioRetirada.get().split(':')
-    
-    if telaEmprestimo.entHorarioRetirada.get()=='' or len(telaEmprestimo.entHorarioRetirada.get())!=5 or int(horario_formatar[0])>=24 or int(horario_formatar[1])>=60:
-        messagebox.showerror('','Horário inválido')
-    else:
-        telaEmprestimo.entDataRetirada.configure(state="normal")
-        data_da_retirada = calendarioRetirada.get_date()
-        hora_retirada = telaEmprestimo.entHorarioRetirada.get()
-        telaEmprestimo.entDataRetirada.delete(0,'end')
-        telaEmprestimo.entDataRetirada.insert(0,data_da_retirada)
-        telaEmprestimo.entDataRetirada.insert(11,' ')
-        telaEmprestimo.entDataRetirada.insert(12,hora_retirada)
-        
-        telaEmprestimo.btnInserirRetirada.place(relx=1.800, rely=1.900, height=30, width=70)
-        calendarioRetirada.place(relx=1.800, rely=1.800)
-        telaEmprestimo.lblHorarioRetirada.place(relx=1.800, rely=1.800)
-        telaEmprestimo.entHorarioRetirada.place(relx=1.800, rely=1.800, height=25, width=78)
-        telaEmprestimo.entDataRetirada.configure(state="disabled")
-    
-def calendarioabrirDevolucao():
-    global calendarioDevolucao
-    calendarioDevolucao = Calendar(telaEmprestimo,fg='gray75',bg='blue',font='Bahnschrift',locate='pt_br')
-    calendarioDevolucao.place(relx=0.505, rely=0.475)
-
-
-    telaEmprestimo.btnInserirDevolucao = Button(telaEmprestimo)
-    telaEmprestimo.btnInserirDevolucao.place(relx=0.6305, rely=0.700, height=30, width=70)
-    telaEmprestimo.btnInserirDevolucao.configure(activebackground="beige")
-    telaEmprestimo.btnInserirDevolucao.configure(activeforeground="black")
-    telaEmprestimo.btnInserirDevolucao.configure(background="#d9d9d9")
-    telaEmprestimo.btnInserirDevolucao.configure(command=lambda: FecharcalendarioDevolucao())
-    telaEmprestimo.btnInserirDevolucao.configure(compound='left')
-    telaEmprestimo.btnInserirDevolucao.configure(disabledforeground="#a3a3a3")
-    telaEmprestimo.btnInserirDevolucao.configure(foreground="#000000")
-    telaEmprestimo.btnInserirDevolucao.configure(highlightbackground="#d9d9d9")
-    telaEmprestimo.btnInserirDevolucao.configure(highlightcolor="black")
-    telaEmprestimo.btnInserirDevolucao.configure(pady="0")
-    telaEmprestimo.btnInserirDevolucao.configure(text='''Inserir''')
-    
-    telaEmprestimo.lblHorarioDevolucao = Label(telaEmprestimo)
-    telaEmprestimo.lblHorarioDevolucao.place(relx=0.505, rely=0.700)
-    telaEmprestimo.lblHorarioDevolucao.configure(anchor='w')
-    telaEmprestimo.lblHorarioDevolucao.configure(compound='left')
-    telaEmprestimo.lblHorarioDevolucao.configure(disabledforeground="#a3a3a3")
-    telaEmprestimo.lblHorarioDevolucao.configure(foreground="#000000")
-    telaEmprestimo.lblHorarioDevolucao.configure(text='''HORÁRIO:''')
-    telaEmprestimo.lblHorarioDevolucao.configure(font=("Bahnschrift",'13'))
-    
-    telaEmprestimo.entHorarioDevolucao = Entry(telaEmprestimo)
-    telaEmprestimo.entHorarioDevolucao.place(relx=0.552, rely=0.702, height=25, width=78)
-    telaEmprestimo.entHorarioDevolucao.configure(background="white")
-    telaEmprestimo.entHorarioDevolucao.configure(disabledforeground="#a3a3a3")
-    telaEmprestimo.entHorarioDevolucao.configure(font=("Bahnschrift",'11'))
-    telaEmprestimo.entHorarioDevolucao.configure(foreground="#000000")
-    telaEmprestimo.entHorarioDevolucao.configure(insertbackground="black")
-    telaEmprestimo.entHorarioDevolucao.bind('<KeyRelease>',FormatarHoraDevolucao)
-
-def FecharcalendarioDevolucao():
-    horario_formatar = telaEmprestimo.entHorarioDevolucao.get().split(':')
-    print(horario_formatar)
-    
-    if telaEmprestimo.entHorarioDevolucao.get()=='' or len(telaEmprestimo.entHorarioDevolucao.get())!=5 or int(horario_formatar[0])>=24 or int(horario_formatar[1])>=60:
-        messagebox.showerror('','Horário inválido')
-    else:
-        telaEmprestimo.entDataDevolucao.configure(state="normal")
-        data_da_devolucao = calendarioDevolucao.get_date()
-        hora_devolucao = telaEmprestimo.entHorarioDevolucao.get()
-        telaEmprestimo.entDataDevolucao.delete(0,'end')
-        telaEmprestimo.entDataDevolucao.insert(0,data_da_devolucao)
-        telaEmprestimo.entDataDevolucao.insert(11,' ')
-        telaEmprestimo.entDataDevolucao.insert(12,hora_devolucao)
-        
-        calendarioDevolucao.place(relx=1.800, rely=1.800)
-        telaEmprestimo.btnInserirDevolucao.place(relx=1.800, rely=1.800, height=30, width=70)
-        telaEmprestimo.lblHorarioDevolucao.place(relx=1.800, rely=1.800)
-        telaEmprestimo.entHorarioDevolucao.place(relx=1.800, rely=1.800, height=25, width=78)
-        telaEmprestimo.entDataDevolucao.configure(state="disabled")
-
-def FormatarHoraRetirada(event=None):
-    if len(telaEmprestimo.entHorarioRetirada.get())==2:
-        telaEmprestimo.entHorarioRetirada.insert(2,':')
-        
-    if len(telaEmprestimo.entHorarioRetirada.get())==6:
-        telaEmprestimo.entHorarioRetirada.delete(5,'end')
-
-def FormatarHoraDevolucao(event=None):
-    if len(telaEmprestimo.entHorarioDevolucao.get())==2:
-        telaEmprestimo.entHorarioDevolucao.insert(2,':')
-    if len(telaEmprestimo.entHorarioDevolucao.get())==6:
-        telaEmprestimo.entHorarioDevolucao.delete(5,'end')
-
-def reservarFerramenta():
-    data_retirada = telaEmprestimo.entDataRetirada.get()
-    data_e_hora_retirada = datetime.strptime(data_retirada, "%d/%m/%Y %H:%M")
-    
-    data_devolucao = telaEmprestimo.entDataDevolucao.get()
-    data_e_hora_devolucao = datetime.strptime(data_devolucao, "%d/%m/%Y %H:%M")
-    
-    df = pd.read_csv("ferramentas.csv")
-    id_ferramenta = df[df.ID==int(telaEmprestimo.entIDferramenta.get())]
-    numero1 = id_ferramenta['TempoMaximoReserva']
-    numero2 = list(numero1)
-    numero3= str(numero2).replace(']','')
-    numero4 = numero3.replace('[','')
-
-    tempo_max_reserva = float(numero4)
-    
-    time_1 = timedelta(days=0, hours=0)
-    time_2 = timedelta(hours=tempo_max_reserva)
-    print(time_2)
-    data_devolucao_max = time_1+time_2
-    print(data_devolucao_max)
-    data_max = data_devolucao_max + data_e_hora_retirada
-    print(data_max)
-    
-    if data_e_hora_devolucao>data_max:
-        messagebox.showerror('','Data de devolução inválida')
-    # elif data_e_hora_devolucao<=data_max:
-    #     ################ COLOCAR AQUI O CÓDIGO PARA RESERVAR NO CSV ################
-
-def gravarReserva():
-    telaEmprestimo.entIDferramenta.configure(state="normal")
-
-    df = pd.read_csv(arquivosReservas, na_filter=False)
-    df['ID'] = df['ID'].astype(int)
-    chave = telaEmprestimo.entID.get()
-
-    coluna = 'ID do Emprestimo'
-    valor = telaEmprestimo.entID.get()
-    df.loc[int(chave)-1, coluna] = valor
-
-    coluna = 'Id Ferramenta'
-    valor = telaEmprestimo.entIDferramenta.get()
-    tamanhoCampo_1 = 30
-    df.loc[int(chave)-1, coluna] = valor[0:tamanhoCampo_1]
-
-    coluna = 'CPF Técnico'
-    valor = telaEmprestimo.entCPFemprestimo.get()
-    tamanhoCampo_1 = 30
-    df.loc[int(chave)-1, coluna] = valor[0:tamanhoCampo_1]
-
-    coluna = 'Nome'
-    valor = telaEmprestimo.entNomeEmprestimo.get()
-    tamanhoCampo_1 = 15
-    df.loc[int(chave)-1, coluna] = valor[0:tamanhoCampo_1]
-
-    coluna = 'Data Retirada'
-    valor= telaEmprestimo.entDataRetirada.get()
-    tamanhoCampo_1 = 25
-    df.loc[int(chave)-1, coluna] = valor[0:tamanhoCampo_1]
-
-    coluna = 'Data Devolução'
-    valor = telaEmprestimo.entDataDevolucao.get()
-    tamanhoCampo_1 = 25
-    df.loc[int(chave)-1, coluna] = valor[0:tamanhoCampo_1]
-
-    df['ID'] = df['ID'].astype(int)
-    df.to_csv(arquivosReservas, index=False)
-
-def formatarCPFReserva(event=None):
-    text = telaEmprestimo.entCPFemprestimo.get().replace(".", "").replace("-", "")[:11]
-    new_text = ""
-
-    if event.keysym.lower() == "backspace":
-        return
-
-    for index in range(len(text)):
-
-        if not text[index] in "0123456789":
-            continue
-        if index in [2, 5]:
-            new_text += text[index] + "."
-        elif index == 8:
-            new_text += text[index] + "-"
-        else:
-            new_text += text[index]
-
-    telaEmprestimo.entCPFemprestimo.delete(0, "end")
-    telaEmprestimo.entCPFemprestimo.insert(0, new_text)
 
 menuTelaEmprestimoCadastro = Menubutton(telaEmprestimo, text='Cadastro', activebackground='gray')
 menuTelaEmprestimoCadastro.grid(row=0, column=0)
@@ -1462,58 +1653,11 @@ menuTelaEmprestimoRelatorios.menu = Menu(menuTelaEmprestimoRelatorios, tearoff=0
 menuTelaEmprestimoRelatorios["menu"] = menuTelaEmprestimoRelatorios.menu
 menuTelaEmprestimoRelatorios.menu.add_command(label='Empréstimo de Ferramentas', command=lambda: show_frame(telaRelatorioEmprestimo))
 
-menuTelaPrincipalAjuda = Menubutton(telaEmprestimo, text='Ajuda', activebackground='gray')
-menuTelaPrincipalAjuda.grid(row=0, column=3)
-menuTelaPrincipalAjuda.menu = Menu(menuTelaPrincipalAjuda, tearoff=0)
-menuTelaPrincipalAjuda["menu"] = menuTelaPrincipalAjuda.menu
-menuTelaPrincipalAjuda.menu.add_command(label='Sobre', command=lambda: show_frame(telaSobre))
-
-
-telaEmprestimo.btnReservar = Button(telaEmprestimo)
-telaEmprestimo.btnReservar.place(relx=0.420, rely=0.280, height=30, width=70)
-telaEmprestimo.btnReservar.configure(activebackground="beige")
-telaEmprestimo.btnReservar.configure(activeforeground="black")
-telaEmprestimo.btnReservar.configure(background="#d9d9d9")
-telaEmprestimo.btnReservar.configure(command=lambda: btnreservarFerramenta())
-telaEmprestimo.btnReservar.configure(compound='left')
-telaEmprestimo.btnReservar.configure(disabledforeground="#a3a3a3")
-telaEmprestimo.btnReservar.configure(foreground="#000000")
-telaEmprestimo.btnReservar.configure(highlightbackground="#d9d9d9")
-telaEmprestimo.btnReservar.configure(highlightcolor="black")
-telaEmprestimo.btnReservar.configure(pady="0")
-telaEmprestimo.btnReservar.configure(text='''Reservar''')
-
-
-telaEmprestimo.btnConfirmar = Button(telaEmprestimo)
-telaEmprestimo.btnConfirmar.place(relx=0.47, rely=0.280, height=30, width=70)
-telaEmprestimo.btnConfirmar.configure(activebackground="beige")
-telaEmprestimo.btnConfirmar.configure(activeforeground="black")
-telaEmprestimo.btnConfirmar.configure(background="#d9d9d9")
-telaEmprestimo.btnConfirmar.configure(command=lambda: gravarReserva())
-telaEmprestimo.btnConfirmar.configure(compound='left')
-telaEmprestimo.btnConfirmar.configure(disabledforeground="#a3a3a3")
-telaEmprestimo.btnConfirmar.configure(foreground="#000000")
-telaEmprestimo.btnConfirmar.configure(highlightbackground="#d9d9d9")
-telaEmprestimo.btnConfirmar.configure(highlightcolor="black")
-telaEmprestimo.btnConfirmar.configure(pady="0")
-telaEmprestimo.btnConfirmar.configure(text='''Confirmar''')
-telaEmprestimo.btnConfirmar.configure(state="disabled")
-
-telaEmprestimo.btnCancelar = Button(telaEmprestimo)
-telaEmprestimo.btnCancelar.place(relx=0.52, rely=0.280, height=30, width=70)
-telaEmprestimo.btnCancelar.configure(activebackground="beige")
-telaEmprestimo.btnCancelar.configure(activeforeground="black")
-telaEmprestimo.btnCancelar.configure(background="#d9d9d9")
-telaEmprestimo.btnCancelar.configure(command=lambda: cancelarReserva())
-telaEmprestimo.btnCancelar.configure(compound='left')
-telaEmprestimo.btnCancelar.configure(disabledforeground="#a3a3a3")
-telaEmprestimo.btnCancelar.configure(foreground="#000000")
-telaEmprestimo.btnCancelar.configure(highlightbackground="#d9d9d9")
-telaEmprestimo.btnCancelar.configure(highlightcolor="black")
-telaEmprestimo.btnCancelar.configure(pady="0")
-telaEmprestimo.btnCancelar.configure(text='''Cancelar''')
-telaEmprestimo.btnCancelar.configure(state="disabled")
-
+menuTelaEmprestimoAjuda = Menubutton(telaEmprestimo, text='Ajuda', activebackground='gray')
+menuTelaEmprestimoAjuda.grid(row=0, column=3)
+menuTelaEmprestimoAjuda.menu = Menu(menuTelaEmprestimoAjuda, tearoff=0)
+menuTelaEmprestimoAjuda["menu"] = menuTelaEmprestimoAjuda.menu
+menuTelaEmprestimoAjuda.menu.add_command(label='Sobre', command=lambda: show_frame(telaSobre))
 
 telaEmprestimo.Label1 = Label(telaEmprestimo)
 telaEmprestimo.Label1.place(relx=0.0, rely=0.021, height=63, width=1920)
@@ -1524,112 +1668,402 @@ telaEmprestimo.Label1.configure(disabledforeground="#a3a3a3")
 telaEmprestimo.Label1.configure(font="-family {Segoe UI} -size 14 -weight bold")
 telaEmprestimo.Label1.configure(foreground="#000000")
 telaEmprestimo.Label1.configure(highlightcolor="#ffffff")
-telaEmprestimo.Label1.configure(text='''Tela de Emprestimo de Ferramenta''')
+telaEmprestimo.Label1.configure(text='''Empréstimo de Ferramentas''')
 
-telaEmprestimo.lblIDferramenta = Label(telaEmprestimo)
-telaEmprestimo.lblIDferramenta.place(relx=0.354, rely=0.355)
-telaEmprestimo.lblIDferramenta.configure(anchor='w')
-telaEmprestimo.lblIDferramenta.configure(compound='left')
-telaEmprestimo.lblIDferramenta.configure(disabledforeground="#a3a3a3")
-telaEmprestimo.lblIDferramenta.configure(foreground="#000000")
-telaEmprestimo.lblIDferramenta.configure(text='''ID da ferramenta:''')
-telaEmprestimo.entIDferramenta = Entry(telaEmprestimo)
-telaEmprestimo.entIDferramenta.place(relx=0.408, rely=0.355, height=20, relwidth=0.163)
-telaEmprestimo.entIDferramenta.configure(background="white")
-telaEmprestimo.entIDferramenta.configure(disabledforeground="#a3a3a3")
-telaEmprestimo.entIDferramenta.configure(font="TkFixedFont")
-telaEmprestimo.entIDferramenta.configure(foreground="#000000")
-telaEmprestimo.entIDferramenta.configure(insertbackground="black")
-telaEmprestimo.entIDferramenta.configure(state="disabled")
+colunasEmprestimo = ('ID', 'Ferramenta', 'Tecnico', 'DataRetirada', 'DataPrevisaoDevolucao','DataDevolucao')
+treeEmprestimo = ttk.Treeview(telaEmprestimo, columns=colunasEmprestimo, show='headings')
+scrollbar = ttk.Scrollbar(telaEmprestimo,
+                          orient="vertical",
+                          command=treeEmprestimo.yview)
+scrollbar.place(relx=0.99, rely=0.091, height=280, width=20)
+treeEmprestimo.configure(xscrollcommand=scrollbar.set)
 
-telaEmprestimo.lblCPFemprestimo = Label(telaEmprestimo)
-telaEmprestimo.lblCPFemprestimo.place(relx=0.354, rely=0.395)
-telaEmprestimo.lblCPFemprestimo.configure(anchor='w')
-telaEmprestimo.lblCPFemprestimo.configure(compound='left')
-telaEmprestimo.lblCPFemprestimo.configure(disabledforeground="#a3a3a3")
-telaEmprestimo.lblCPFemprestimo.configure(foreground="#000000")
-telaEmprestimo.lblCPFemprestimo.configure(text='''CPF do Técnico:''')
-telaEmprestimo.entCPFemprestimo = Entry(telaEmprestimo)
-telaEmprestimo.entCPFemprestimo.place(relx=0.408, rely=0.395, height=20, relwidth=0.163)
-telaEmprestimo.entCPFemprestimo.configure(background="white")
-telaEmprestimo.entCPFemprestimo.configure(disabledforeground="#a3a3a3")
-telaEmprestimo.entCPFemprestimo.configure(font="TkFixedFont")
-telaEmprestimo.entCPFemprestimo.configure(foreground="#000000")
-telaEmprestimo.entCPFemprestimo.configure(insertbackground="black")
-telaEmprestimo.entCPFemprestimo.configure(state="disabled")
-telaEmprestimo.entCPFemprestimo.bind("<FocusOut>",inserirnomeTecnico)
-telaEmprestimo.entCPFemprestimo.bind("<KeyRelease>", formatarCPFReserva)
+# define headings
+treeEmprestimo.heading("ID", text="ID", anchor=W)
+treeEmprestimo.heading("Ferramenta", text="Ferramenta", anchor=W)
+treeEmprestimo.heading("Tecnico", text="Tecnico", anchor=W)
+treeEmprestimo.heading("DataRetirada", text="Data Retirada", anchor=W)
+treeEmprestimo.heading("DataPrevisaoDevolucao", text="Data Previsão Devolução", anchor=W)
+treeEmprestimo.heading("DataDevolucao", text="Data Devolução", anchor=W)
+
+df = pd.read_csv(arquivoReservas, na_filter=False)
+for row, series in df.iterrows():
+    treeEmprestimo.insert(parent='', index='end', iid=row, text='', values=(
+        series['ID'], series['Ferramenta'], series['Tecnico'], series['DataRetirada'], series['DataPrevisaoDevolucao'], series['DataDevolucao']))
 
 
-telaEmprestimo.lblNomeEmprestimo = Label(telaEmprestimo)
-telaEmprestimo.lblNomeEmprestimo.place(relx=0.354, rely=0.435, height=21, width=60)
-telaEmprestimo.lblNomeEmprestimo.configure(anchor='w')
-telaEmprestimo.lblNomeEmprestimo.configure(compound='left')
-telaEmprestimo.lblNomeEmprestimo.configure(disabledforeground="#a3a3a3")
-telaEmprestimo.lblNomeEmprestimo.configure(foreground="#000000")
-telaEmprestimo.lblNomeEmprestimo.configure(text='''Nome:''')
-telaEmprestimo.entNomeEmprestimo = Entry(telaEmprestimo)
-telaEmprestimo.entNomeEmprestimo.place(relx=0.408, rely=0.435, height=20, relwidth=0.163)
-telaEmprestimo.entNomeEmprestimo.configure(background="white")
-telaEmprestimo.entNomeEmprestimo.configure(disabledforeground="#a3a3a3")
-telaEmprestimo.entNomeEmprestimo.configure(font="TkFixedFont")
-telaEmprestimo.entNomeEmprestimo.configure(foreground="#000000")
-telaEmprestimo.entNomeEmprestimo.configure(insertbackground="black")
-telaEmprestimo.entNomeEmprestimo.configure(state="disabled")
+def selecionaEmprestimo(event):
+    for selected_item in treeEmprestimo.selection():
+        item = treeEmprestimo.item(selected_item)
+        record = item['values']
 
 
+treeEmprestimo.bind('<<TreeviewSelect>>', selecionaEmprestimo)
+treeEmprestimo.place(relx=0.0, rely=0.091, height=280, width=1920)
 
-telaEmprestimo.btnDataRetirada = Button(telaEmprestimo)
-telaEmprestimo.btnDataRetirada.place(relx=0.421, rely=0.475, height=30, width=70)
-telaEmprestimo.btnDataRetirada.configure(activebackground="beige")
-telaEmprestimo.btnDataRetirada.configure(activeforeground="black")
-telaEmprestimo.btnDataRetirada.configure(background="#d9d9d9")
-telaEmprestimo.btnDataRetirada.configure(command=lambda: calendarioabrirRetirada())
-telaEmprestimo.btnDataRetirada.configure(compound='left')
-telaEmprestimo.btnDataRetirada.configure(disabledforeground="#a3a3a3")
-telaEmprestimo.btnDataRetirada.configure(foreground="#000000")
-telaEmprestimo.btnDataRetirada.configure(highlightbackground="#d9d9d9")
-telaEmprestimo.btnDataRetirada.configure(highlightcolor="black")
-telaEmprestimo.btnDataRetirada.configure(pady="0")
-telaEmprestimo.btnDataRetirada.configure(text='''Retirada''')
-telaEmprestimo.btnDataRetirada.configure(state="disabled")
+telaEmprestimo.btnReservar = Button(telaEmprestimo)
+telaEmprestimo.btnReservar.place(relx=0.37, rely=0.380, height=30, width=70)
+telaEmprestimo.btnReservar.configure(activebackground="beige")
+telaEmprestimo.btnReservar.configure(activeforeground="black")
+telaEmprestimo.btnReservar.configure(background="#d9d9d9")
+telaEmprestimo.btnReservar.configure(command=lambda: inserirEmprestimo())
+telaEmprestimo.btnReservar.configure(compound='left')
+telaEmprestimo.btnReservar.configure(disabledforeground="#a3a3a3")
+telaEmprestimo.btnReservar.configure(foreground="#000000")
+telaEmprestimo.btnReservar.configure(highlightbackground="#d9d9d9")
+telaEmprestimo.btnReservar.configure(highlightcolor="black")
+telaEmprestimo.btnReservar.configure(pady="0")
+telaEmprestimo.btnReservar.configure(text='''Reservar''')
 
-telaEmprestimo.entDataRetirada = Entry(telaEmprestimo)
-telaEmprestimo.entDataRetirada.place(relx=0.408, rely=0.515, height=25, width=120)
-telaEmprestimo.entDataRetirada.configure(background="white")
-telaEmprestimo.entDataRetirada.configure(disabledforeground="#a3a3a3")
-telaEmprestimo.entDataRetirada.configure(font=("Bahnschrift",'11'))
-telaEmprestimo.entDataRetirada.configure(foreground="#000000")
-telaEmprestimo.entDataRetirada.configure(insertbackground="black")
-telaEmprestimo.entDataRetirada.configure(state="disabled")
+telaEmprestimo.btnDevolver = Button(telaEmprestimo)
+telaEmprestimo.btnDevolver.place(relx=0.42, rely=0.380, height=30, width=70)
+telaEmprestimo.btnDevolver.configure(activebackground="beige")
+telaEmprestimo.btnDevolver.configure(activeforeground="black")
+telaEmprestimo.btnDevolver.configure(background="#d9d9d9")
+telaEmprestimo.btnDevolver.configure(command=lambda: editarEmprestimo())
+telaEmprestimo.btnDevolver.configure(compound='left')
+telaEmprestimo.btnDevolver.configure(disabledforeground="#a3a3a3")
+telaEmprestimo.btnDevolver.configure(foreground="#000000")
+telaEmprestimo.btnDevolver.configure(highlightbackground="#d9d9d9")
+telaEmprestimo.btnDevolver.configure(highlightcolor="black")
+telaEmprestimo.btnDevolver.configure(pady="0")
+telaEmprestimo.btnDevolver.configure(text='''Devolver''')
+
+telaEmprestimo.btnDeletar = Button(telaEmprestimo)
+telaEmprestimo.btnDeletar.place(relx=0.47, rely=0.380, height=30, width=70)
+telaEmprestimo.btnDeletar.configure(activebackground="beige")
+telaEmprestimo.btnDeletar.configure(activeforeground="black")
+telaEmprestimo.btnDeletar.configure(background="#d9d9d9")
+telaEmprestimo.btnDeletar.configure(command=lambda: deletarEmprestimo())
+telaEmprestimo.btnDeletar.configure(compound='left')
+telaEmprestimo.btnDeletar.configure(disabledforeground="#a3a3a3")
+telaEmprestimo.btnDeletar.configure(foreground="#000000")
+telaEmprestimo.btnDeletar.configure(highlightbackground="#d9d9d9")
+telaEmprestimo.btnDeletar.configure(highlightcolor="black")
+telaEmprestimo.btnDeletar.configure(pady="0")
+telaEmprestimo.btnDeletar.configure(text='''Deletar''')
+
+telaEmprestimo.btnGravar = Button(telaEmprestimo)
+telaEmprestimo.btnGravar.place(relx=0.52, rely=0.380, height=30, width=70)
+telaEmprestimo.btnGravar.configure(activebackground="beige")
+telaEmprestimo.btnGravar.configure(activeforeground="black")
+telaEmprestimo.btnGravar.configure(background="#d9d9d9")
+telaEmprestimo.btnGravar.configure(command=lambda: gravarEmprestimo())
+telaEmprestimo.btnGravar.configure(compound='left')
+telaEmprestimo.btnGravar.configure(disabledforeground="#a3a3a3")
+telaEmprestimo.btnGravar.configure(foreground="#000000")
+telaEmprestimo.btnGravar.configure(highlightbackground="#d9d9d9")
+telaEmprestimo.btnGravar.configure(highlightcolor="black")
+telaEmprestimo.btnGravar.configure(pady="0")
+telaEmprestimo.btnGravar.configure(text='''Gravar''')
+telaEmprestimo.btnGravar.configure(state="disabled")
+
+telaEmprestimo.btnCancelar = Button(telaEmprestimo)
+telaEmprestimo.btnCancelar.place(relx=0.57, rely=0.380, height=30, width=70)
+telaEmprestimo.btnCancelar.configure(activebackground="beige")
+telaEmprestimo.btnCancelar.configure(activeforeground="black")
+telaEmprestimo.btnCancelar.configure(background="#d9d9d9")
+telaEmprestimo.btnCancelar.configure(command=lambda: cancelarEmprestimo())
+telaEmprestimo.btnCancelar.configure(compound='left')
+telaEmprestimo.btnCancelar.configure(disabledforeground="#a3a3a3")
+telaEmprestimo.btnCancelar.configure(foreground="#000000")
+telaEmprestimo.btnCancelar.configure(highlightbackground="#d9d9d9")
+telaEmprestimo.btnCancelar.configure(highlightcolor="black")
+telaEmprestimo.btnCancelar.configure(pady="0")
+telaEmprestimo.btnCancelar.configure(text='''Cancelar''')
+telaEmprestimo.btnCancelar.configure(state="disabled")
+
+telaEmprestimo.lblID = Label(telaEmprestimo)
+telaEmprestimo.lblID.place(relx=0.328, rely=0.435, height=21, width=60)
+telaEmprestimo.lblID.configure(anchor='w')
+telaEmprestimo.lblID.configure(compound='left')
+telaEmprestimo.lblID.configure(disabledforeground="#a3a3a3")
+telaEmprestimo.lblID.configure(foreground="#000000")
+telaEmprestimo.lblID.configure(text='''ID:''')
+telaEmprestimo.entID = Entry(telaEmprestimo)
+telaEmprestimo.entID.place(relx=0.382, rely=0.435, height=20, relwidth=0.053)
+telaEmprestimo.entID.configure(background="white")
+telaEmprestimo.entID.configure(disabledforeground="#a3a3a3")
+telaEmprestimo.entID.configure(font="TkFixedFont")
+telaEmprestimo.entID.configure(foreground="#000000")
+telaEmprestimo.entID.configure(insertbackground="black")
+telaEmprestimo.entID.configure(state="disabled")
 
 
-telaEmprestimo.btnDataDevolucao = Button(telaEmprestimo)
-telaEmprestimo.btnDataDevolucao.place(relx=0.520, rely=0.475, height=30, width=70)
-telaEmprestimo.btnDataDevolucao.configure(activebackground="beige")
-telaEmprestimo.btnDataDevolucao.configure(activeforeground="black")
-telaEmprestimo.btnDataDevolucao.configure(background="#d9d9d9")
-telaEmprestimo.btnDataDevolucao.configure(command=lambda: calendarioabrirDevolucao())
-telaEmprestimo.btnDataDevolucao.configure(compound='left')
-telaEmprestimo.btnDataDevolucao.configure(disabledforeground="#a3a3a3")
-telaEmprestimo.btnDataDevolucao.configure(foreground="#000000")
-telaEmprestimo.btnDataDevolucao.configure(highlightbackground="#d9d9d9")
-telaEmprestimo.btnDataDevolucao.configure(highlightcolor="black")
-telaEmprestimo.btnDataDevolucao.configure(pady="0")
-telaEmprestimo.btnDataDevolucao.configure(text='''Devolução''')
-telaEmprestimo.btnDataDevolucao.configure(state="disabled")
+telaEmprestimo.lblCPF = Label(telaEmprestimo)
+telaEmprestimo.lblCPF.place(relx=0.328, rely=0.475, height=21, width=60)
+telaEmprestimo.lblCPF.configure(anchor='w')
+telaEmprestimo.lblCPF.configure(compound='left')
+telaEmprestimo.lblCPF.configure(disabledforeground="#a3a3a3")
+telaEmprestimo.lblCPF.configure(foreground="#000000")
+telaEmprestimo.lblCPF.configure(text='''CPF:''')
+telaEmprestimo.entCPF = Entry(telaEmprestimo)
+telaEmprestimo.entCPF.place(relx=0.382, rely=0.475, height=20, relwidth=0.100)
+telaEmprestimo.entCPF.configure(background="white")
+telaEmprestimo.entCPF.configure(disabledforeground="#a3a3a3")
+telaEmprestimo.entCPF.configure(font="TkFixedFont")
+telaEmprestimo.entCPF.configure(foreground="#000000")
+telaEmprestimo.entCPF.configure(insertbackground="black")
+telaEmprestimo.entCPF.configure(state="disabled")
 
-telaEmprestimo.entDataDevolucao = Entry(telaEmprestimo)
-telaEmprestimo.entDataDevolucao.place(relx=0.507, rely=0.515, height=25, width=120)
-telaEmprestimo.entDataDevolucao.configure(background="white")
-telaEmprestimo.entDataDevolucao.configure(disabledforeground="#a3a3a3")
-telaEmprestimo.entDataDevolucao.configure(font=("Bahnschrift",'11'))
-telaEmprestimo.entDataDevolucao.configure(foreground="#000000")
-telaEmprestimo.entDataDevolucao.configure(insertbackground="black")
-telaEmprestimo.entDataDevolucao.configure(state="disabled")
+telaEmprestimo.lblNome = Label(telaEmprestimo)
+telaEmprestimo.lblNome.place(relx=0.328, rely=0.515, height=21, width=60)
+telaEmprestimo.lblNome.configure(anchor='w')
+telaEmprestimo.lblNome.configure(compound='left')
+telaEmprestimo.lblNome.configure(disabledforeground="#a3a3a3")
+telaEmprestimo.lblNome.configure(foreground="#000000")
+telaEmprestimo.lblNome.configure(text='''Nome:''')
+telaEmprestimo.entNome = Entry(telaEmprestimo)
+telaEmprestimo.entNome.place(relx=0.382, rely=0.515, height=20, relwidth=0.263)
+telaEmprestimo.entNome.configure(background="white")
+telaEmprestimo.entNome.configure(disabledforeground="#a3a3a3")
+telaEmprestimo.entNome.configure(font="TkFixedFont")
+telaEmprestimo.entNome.configure(foreground="#000000")
+telaEmprestimo.entNome.configure(insertbackground="black")
+telaEmprestimo.entNome.configure(state="disabled")
 
+telaEmprestimo.lblTelefone = Label(telaEmprestimo)
+telaEmprestimo.lblTelefone.place(relx=0.328, rely=0.555, height=21, width=100)
+telaEmprestimo.lblTelefone.configure(anchor='w')
+telaEmprestimo.lblTelefone.configure(compound='left')
+telaEmprestimo.lblTelefone.configure(disabledforeground="#a3a3a3")
+telaEmprestimo.lblTelefone.configure(foreground="#000000")
+telaEmprestimo.lblTelefone.configure(text='''Telefone/Radio:''')
+telaEmprestimo.entTelefone = Entry(telaEmprestimo)
+telaEmprestimo.entTelefone.place(relx=0.382, rely=0.555, height=20, relwidth=0.100)
+telaEmprestimo.entTelefone.configure(background="white")
+telaEmprestimo.entTelefone.configure(disabledforeground="#a3a3a3")
+telaEmprestimo.entTelefone.configure(font="TkFixedFont")
+telaEmprestimo.entTelefone.configure(foreground="#000000")
+telaEmprestimo.entTelefone.configure(insertbackground="black")
+telaEmprestimo.entTelefone.configure(state="disabled")
+
+turno = ['manhã', 'tarde', 'noite']
+telaEmprestimo.lblTurno = Label(telaEmprestimo)
+telaEmprestimo.lblTurno.place(relx=0.328, rely=0.595, height=21, width=80)
+telaEmprestimo.lblTurno.configure(anchor='w')
+telaEmprestimo.lblTurno.configure(compound='left')
+telaEmprestimo.lblTurno.configure(disabledforeground="#a3a3a3")
+telaEmprestimo.lblTurno.configure(foreground="#000000")
+telaEmprestimo.lblTurno.configure(text='''Turno:''')
+telaEmprestimo.comboTurno = ttk.Combobox(telaEmprestimo, width=15)
+telaEmprestimo.comboTurno.place(relx=0.382, rely=0.595, height=20, relwidth=0.100)
+telaEmprestimo.comboTurno.configure(background="white")
+telaEmprestimo.comboTurno.configure(font="TkFixedFont")
+telaEmprestimo.comboTurno.configure(foreground="#000000")
+telaEmprestimo.comboTurno.configure(state="disabled")
+telaEmprestimo.comboTurno['values'] = (turno)
+
+telaEmprestimo.lblNomeEquipe = Label(telaEmprestimo)
+telaEmprestimo.lblNomeEquipe.place(relx=0.328, rely=0.635, height=21, width=60)
+telaEmprestimo.lblNomeEquipe.configure(anchor='w')
+telaEmprestimo.lblNomeEquipe.configure(compound='left')
+telaEmprestimo.lblNomeEquipe.configure(disabledforeground="#a3a3a3")
+telaEmprestimo.lblNomeEquipe.configure(foreground="#000000")
+telaEmprestimo.lblNomeEquipe.configure(text='''Nome:''')
+telaEmprestimo.entNomeEquipe = Entry(telaEmprestimo)
+telaEmprestimo.entNomeEquipe.place(relx=0.382, rely=0.635, height=20, relwidth=0.200)
+telaEmprestimo.entNomeEquipe.configure(background="white")
+telaEmprestimo.entNomeEquipe.configure(disabledforeground="#a3a3a3")
+telaEmprestimo.entNomeEquipe.configure(font="TkFixedFont")
+telaEmprestimo.entNomeEquipe.configure(foreground="#000000")
+telaEmprestimo.entNomeEquipe.configure(insertbackground="black")
+telaEmprestimo.entNomeEquipe.configure(state="disabled")
+
+
+def inserirEmprestimo():
+    telaEmprestimo.btnReservar.configure(state="disabled")
+    telaEmprestimo.btnDevolver.configure(state="disabled")
+    telaEmprestimo.btnDeletar.configure(state="disabled")
+    telaEmprestimo.btnGravar.configure(state="normal")
+    telaEmprestimo.btnCancelar.configure(state="normal")
+
+    telaEmprestimo.entID.configure(state="normal")
+    telaEmprestimo.entCPF.configure(state="normal")
+    telaEmprestimo.entNome.configure(state="normal")
+    telaEmprestimo.entTelefone.configure(state="normal")
+    telaEmprestimo.comboTurno.configure(state="normal")
+    telaEmprestimo.entNomeEquipe.configure(state="normal")
+
+    telaEmprestimo.entID.delete(0, END)
+    telaEmprestimo.entCPF.delete(0, END)
+    telaEmprestimo.entNome.delete(0, END)
+    telaEmprestimo.entTelefone.delete(0, END)
+    telaEmprestimo.comboTurno.delete(0, END)
+    telaEmprestimo.entNomeEquipe.delete(0, END)
+
+    df = pd.read_csv(arquivoReservas, na_filter=False)
+    chaveNova = df["ID"].max()
+
+    telaEmprestimo.entID.insert(0, chaveNova + 1)
+    telaEmprestimo.entID.configure(state="disabled")
+
+    telaEmprestimo.entCPF.focus_set()
+
+
+def editarEmprestimo():
+    selected = treeEmprestimo.focus()
+    values = treeEmprestimo.item(selected, 'values')
+    if values == '':
+        messagebox.showwarning(title='Aviso', message='Selecione um técnico antes de editar')
+    else:
+        telaEmprestimo.btnReservar.configure(state="disabled")
+        telaEmprestimo.btnDeletar.configure(state="disabled")
+        telaEmprestimo.btnDeletar.configure(state="disabled")
+        telaEmprestimo.btnGravar.configure(state="normal")
+        telaEmprestimo.btnCancelar.configure(state="normal")
+
+        telaEmprestimo.entID.configure(state="normal")
+        telaEmprestimo.entCPF.configure(state="normal")
+        telaEmprestimo.entNome.configure(state="normal")
+        telaEmprestimo.entTelefone.configure(state="normal")
+        telaEmprestimo.comboTurno.configure(state="normal")
+        telaEmprestimo.entNomeEquipe.configure(state="normal")
+
+        telaEmprestimo.entID.delete(0, END)
+        telaEmprestimo.entCPF.delete(0, END)
+        telaEmprestimo.entNome.delete(0, END)
+        telaEmprestimo.entTelefone.delete(0, END)
+        telaEmprestimo.comboTurno.delete(0, END)
+        telaEmprestimo.entNomeEquipe.delete(0, END)
+
+        telaEmprestimo.entID.insert(0, values[0])
+        telaEmprestimo.entID.configure(state="disabled")
+        telaEmprestimo.entCPF.insert(0, values[1])
+        telaEmprestimo.entNome.insert(0, values[2])
+        telaEmprestimo.entTelefone.insert(0, values[3])
+        telaEmprestimo.comboTurno.insert(0, values[4])
+        telaEmprestimo.entNomeEquipe.insert(0, values[5])
+
+        telaEmprestimo.entCPF.focus_set()
+
+
+def gravarEmprestimo():
+    df = pd.read_csv('tecnicos.csv', na_filter=False)
+    lista_cpfs = []
+
+    df.iterrows()
+    for row, series in df.iterrows():
+        lista_cpfs.append(series['CPF'])
+
+    telaEmprestimo.entID.configure(state="normal")
+
+    df = pd.read_csv(arquivoReservas, na_filter=False)
+    df['ID'] = df['ID'].astype(int)
+    chave = telaEmprestimo.entID.get()
+
+    coluna = 'ID'
+    valor = telaEmprestimo.entID.get()
+    df.loc[int(chave) - 1, coluna] = valor
+
+    coluna = 'CPF'
+    valor = telaEmprestimo.entCPF.get()
+    tamanhoCampo = 14
+    df.loc[int(chave) - 1, coluna] = valor[0:tamanhoCampo]
+
+    coluna = 'Nome'
+    valor = telaEmprestimo.entNome.get()
+    tamanhoCampo = 40
+    df.loc[int(chave) - 1, coluna] = valor[0:tamanhoCampo]
+
+    coluna = 'Telefone'
+    valor = telaEmprestimo.entTelefone.get()
+    tamanhoCampo = 9
+    df.loc[int(chave) - 1, coluna] = valor[0:tamanhoCampo]
+
+    coluna = 'Turno'
+    valor = telaEmprestimo.comboTurno.get()
+    tamanhoCampo = 10
+    df.loc[int(chave) - 1, coluna] = valor[0:tamanhoCampo]
+
+    coluna = 'NomeEquipe'
+    valor = telaEmprestimo.entNomeEquipe.get()
+    tamanhoCampo = 30
+    df.loc[int(chave) - 1, coluna] = valor[0:tamanhoCampo]
+
+    df['ID'] = df['ID'].astype(int)
+    df['Telefone'] = df['Telefone'].astype(int)
+    df.to_csv(arquivoReservas, index=False)
+
+    telaEmprestimo.entID.delete(0, END)
+    telaEmprestimo.entCPF.delete(0, END)
+    telaEmprestimo.entNome.delete(0, END)
+    telaEmprestimo.entTelefone.delete(0, END)
+    telaEmprestimo.comboTurno.delete(0, END)
+    telaEmprestimo.entNomeEquipe.delete(0, END)
+
+    telaEmprestimo.entID.configure(state="disabled")
+    telaEmprestimo.entCPF.configure(state="disabled")
+    telaEmprestimo.entNome.configure(state="disabled")
+    telaEmprestimo.entTelefone.configure(state="disabled")
+    telaEmprestimo.comboTurno.configure(state="disabled")
+    telaEmprestimo.entNomeEquipe.configure(state="disabled")
+
+    telaEmprestimo.btnReservar.configure(state="normal")
+    telaEmprestimo.btnDevolver.configure(state="normal")
+    telaEmprestimo.btnDeletar.configure(state="normal")
+    telaEmprestimo.btnGravar.configure(state="disabled")
+    telaEmprestimo.btnCancelar.configure(state="disabled")
+
+    listaDadosEmprestimo()
+
+
+def cancelarEmprestimo():
+    telaEmprestimo.entID.configure(state="normal")
+
+    telaEmprestimo.entID.delete(0, END)
+    telaEmprestimo.entCPF.delete(0, END)
+    telaEmprestimo.entNome.delete(0, END)
+    telaEmprestimo.entTelefone.delete(0, END)
+    telaEmprestimo.comboTurno.delete(0, END)
+    telaEmprestimo.entNomeEquipe.delete(0, END)
+
+    telaEmprestimo.entID.configure(state="disabled")
+    telaEmprestimo.entCPF.configure(state="disabled")
+    telaEmprestimo.entNome.configure(state="disabled")
+    telaEmprestimo.entTelefone.configure(state="disabled")
+    telaEmprestimo.comboTurno.configure(state="disabled")
+    telaEmprestimo.entNomeEquipe.configure(state="disabled")
+
+    telaEmprestimo.btnReservar.configure(state="normal")
+    telaEmprestimo.btnDevolver.configure(state="normal")
+    telaEmprestimo.btnDeletar.configure(state="normal")
+    telaEmprestimo.btnGravar.configure(state="disabled")
+    telaEmprestimo.btnCancelar.configure(state="disabled")
+
+def deletarEmprestimo():
+    df = pd.read_csv(arquivoReservas, na_filter=False)
+    answer = askyesno(title='Confirmação',
+                      message='Deseja excluir o técnico?')
+    if answer == True:
+        clicaritem = treeEmprestimo.focus()
+        valor = treeEmprestimo.item(clicaritem)
+        lista_valores = valor['values']
+        print(df)
+        valornormal = lista_valores[0] - 1
+        print(valornormal)
+        df_s = df.drop(df.index[valornormal])
+        df_s.to_csv(arquivoReservas, index=False)
+        treeEmprestimo.delete(*treeEmprestimo.get_children())
+        df = pd.read_csv(arquivoReservas, na_filter=False)
+        df = pd.read_csv(arquivoReservas, na_filter=False)
+        for row, series in df.iterrows():
+            treeEmprestimo.insert(parent='', index='end', iid=row, text='', values=(
+                series['ID'], series['Ferramenta'], series['Tecnico'], series['DataRetirada'],
+                series['DataPrevisaoDevolucao'], series['DataDevolucao']))
+
+def listaDadosEmprestimo():
+    treeEmprestimo.delete(*treeEmprestimo.get_children())
+    df = pd.read_csv(arquivoReservas, na_filter=False)
+    df = pd.read_csv(arquivoReservas, na_filter=False)
+    for row, series in df.iterrows():
+        treeEmprestimo.insert(parent='', index='end', iid=row, text='', values=(
+            series['ID'], series['Ferramenta'], series['Tecnico'], series['DataRetirada'],
+            series['DataPrevisaoDevolucao'], series['DataDevolucao']))
 
 # ======== Fim Tela Emprestimo ==========
+
+
 
 # ======== Inicio Relatorio Emprestimo ==========
 menuTelaRelatorioEmprestimoCadastro = Menubutton(telaRelatorioEmprestimo, text='Cadastro', activebackground='gray')

@@ -1,2 +1,2 @@
-ID,Ferramenta,Tecnico,DataRetirada,DataDevolucao
-1,nada,Carlos da silva,0,0
+ID,Ferramenta,Tecnico,DataRetirada,DataPrevisaoDevolucao,DataDevolucao
+1,nada,Carlos da silva,0,0,0
