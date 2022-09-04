@@ -3,8 +3,10 @@ from PIL import ImageTk, Image
 import pandas as pd
 from tkinter import messagebox
 from tkinter import ttk
+from tkinter import filedialog
 from tkinter.messagebox import askyesno
 from tkcalendar import Calendar, DateEntry
+import subprocess
 from datetime import datetime,date,timedelta
 
 def validacpf():
@@ -287,8 +289,22 @@ telaFerramenta.btnDeletar.configure(highlightcolor="black")
 telaFerramenta.btnDeletar.configure(pady="0")
 telaFerramenta.btnDeletar.configure(text='''Deletar''')
 
+telaFerramenta.btnExportar = Button(telaFerramenta)
+telaFerramenta.btnExportar.place(relx=0.52, rely=0.380, height=30, width=85)
+telaFerramenta.btnExportar.configure(activebackground="beige")
+telaFerramenta.btnExportar.configure(activeforeground="black")
+telaFerramenta.btnExportar.configure(background="#d9d9d9")
+telaFerramenta.btnExportar.configure(command=lambda: exportarFerramenta())
+telaFerramenta.btnExportar.configure(compound='left')
+telaFerramenta.btnExportar.configure(disabledforeground="#a3a3a3")
+telaFerramenta.btnExportar.configure(foreground="#000000")
+telaFerramenta.btnExportar.configure(highlightbackground="#d9d9d9")
+telaFerramenta.btnExportar.configure(highlightcolor="black")
+telaFerramenta.btnExportar.configure(pady="0")
+telaFerramenta.btnExportar.configure(text='''Exportar Excel''')
+
 telaFerramenta.btnGravar = Button(telaFerramenta)
-telaFerramenta.btnGravar.place(relx=0.52, rely=0.380, height=30, width=70)
+telaFerramenta.btnGravar.place(relx=0.57, rely=0.380, height=30, width=70)
 telaFerramenta.btnGravar.configure(activebackground="beige")
 telaFerramenta.btnGravar.configure(activeforeground="black")
 telaFerramenta.btnGravar.configure(background="#d9d9d9")
@@ -303,7 +319,7 @@ telaFerramenta.btnGravar.configure(text='''Gravar''')
 telaFerramenta.btnGravar.configure(state="disabled")
 
 telaFerramenta.btnCancelar = Button(telaFerramenta)
-telaFerramenta.btnCancelar.place(relx=0.57, rely=0.380, height=30, width=70)
+telaFerramenta.btnCancelar.place(relx=0.62, rely=0.380, height=30, width=70)
 telaFerramenta.btnCancelar.configure(activebackground="beige")
 telaFerramenta.btnCancelar.configure(activeforeground="black")
 telaFerramenta.btnCancelar.configure(background="#d9d9d9")
@@ -481,6 +497,7 @@ def inserirFerramenta():
     telaFerramenta.btnInserir.configure(state="disabled")
     telaFerramenta.btnEditar.configure(state="disabled")
     telaFerramenta.btnDeletar.configure(state="disabled")
+    telaFerramenta.btnExportar.configure(state="disabled")
     telaFerramenta.btnGravar.configure(state="normal")
     telaFerramenta.btnCancelar.configure(state="normal")
 
@@ -525,6 +542,7 @@ def editarFerramenta():
         telaFerramenta.btnInserir.configure(state="disabled")
         telaFerramenta.btnEditar.configure(state="disabled")
         telaFerramenta.btnDeletar.configure(state="disabled")
+        telaFerramenta.btnExportar.configure(state="disabled")
         telaFerramenta.btnGravar.configure(state="normal")
         telaFerramenta.btnCancelar.configure(state="normal")
 
@@ -649,6 +667,7 @@ def gravarFerramenta():
     telaFerramenta.btnInserir.configure(state="normal")
     telaFerramenta.btnEditar.configure(state="normal")
     telaFerramenta.btnDeletar.configure(state="normal")
+    telaFerramenta.btnExportar.configure(state="normal")
     telaFerramenta.btnGravar.configure(state="disabled")
     telaFerramenta.btnCancelar.configure(state="disabled")
 
@@ -682,9 +701,22 @@ def cancelarFerramenta():
     telaFerramenta.btnInserir.configure(state="normal")
     telaFerramenta.btnEditar.configure(state="normal")
     telaFerramenta.btnDeletar.configure(state="normal")
+    telaFerramenta.btnExportar.configure(state="normal")
     telaFerramenta.btnGravar.configure(state="disabled")
     telaFerramenta.btnCancelar.configure(state="disabled")
 
+def exportarFerramenta():
+    messagebox.showwarning(title='Aviso', message='Selecione a pasta para exportar o arquivo excel')
+    path = filedialog.askdirectory()
+    if path == '':
+        print('Você deve selecionar uma pasta')
+    else:
+        sep = "/"
+        pathNovo = path.replace("/", sep)
+        pathFinal = pathNovo+'\Ferramentas.xlsx'
+        df = pd.read_csv(arquivoFerramentas, na_filter=False)
+        df.to_excel(pathFinal, index=False, header=True)
+        messagebox.showwarning(title='Aviso', message='Arquivo salvo em '+pathFinal)
 def deletarFerramenta():
 
     df = pd.read_csv(arquivoFerramentas, na_filter=False)
@@ -2343,31 +2375,47 @@ telaRelatorioEmprestimo.Label1.configure(foreground="#000000")
 telaRelatorioEmprestimo.Label1.configure(highlightcolor="#ffffff")
 telaRelatorioEmprestimo.Label1.configure(text='''Tela de Relatório de Emprestimo de Ferramenta''')
 
-### treeview
-
-#telaRelatorioEmprestimo
-
-
-colunasRelatorioEmprestimo = ( 'Ferramenta', 'Tecnico', 'DataRetirada', 'DataPrevisaoDevolucao', 'DataDevolucao')
+colunasRelatorioEmprestimo = ('ID','Ferramenta', 'Tecnico', 'DataRetirada', 'DataPrevisaoDevolucao', 'DataDevolucao')
 treetelaRelatorioEmprestimo = ttk.Treeview(telaRelatorioEmprestimo, columns=colunasRelatorioEmprestimo, show='headings')
 scrollbar = ttk.Scrollbar(telaRelatorioEmprestimo,
                           orient="vertical",
                           command=treetelaRelatorioEmprestimo.yview)
 scrollbar.place(relx=0.99, rely=0.091, height=280, width=20)
 treetelaRelatorioEmprestimo.configure(xscrollcommand=scrollbar.set)
-
-# define headings
-#treetelaRelatorioEmprestimo.heading("ID", text="ID", anchor=W)
+treetelaRelatorioEmprestimo.heading("ID", text="ID", anchor=W)
 treetelaRelatorioEmprestimo.heading("Ferramenta", text="Ferramenta", anchor=W)
 treetelaRelatorioEmprestimo.heading("Tecnico", text="Tecnico", anchor=W)
 treetelaRelatorioEmprestimo.heading("DataRetirada", text="Data Retirada", anchor=W)
 treetelaRelatorioEmprestimo.heading("DataPrevisaoDevolucao", text="Data Previsão Devolução", anchor=W)
 treetelaRelatorioEmprestimo.heading("DataDevolucao", text="Data Devolução", anchor=W)
 
+def exportarRelatorioEmprestimo():
+    messagebox.showwarning(title='Aviso', message='Selecione a pasta para exportar o arquivo excel')
+    path = filedialog.askdirectory()
+    if path == '':
+        print('Você deve selecionar uma pasta')
+    else:
+        sep = "/"
+        pathNovo = path.replace("/", sep)
+        pathFinal = pathNovo+'\RelatorioEmprestimo.xlsx'
+        df = pd.read_csv(arquivoReservas, na_filter=False)
+        df.to_excel(pathFinal, index=False, header=True)
+        messagebox.showwarning(title='Aviso', message='Arquivo salvo em '+pathFinal)
+
+def listaDadosRelatorio(ordenacao):
+    treetelaRelatorioEmprestimo.delete(*treetelaRelatorioEmprestimo.get_children())
+    df = pd.read_csv(arquivoReservas, na_filter=False)
+    df.sort_values([ordenacao], axis=0, ascending=[True], inplace=True)
+    for row, series in df.iterrows():
+        treetelaRelatorioEmprestimo.insert(parent='', index='end', iid=row, text='', values=(
+            series['ID'], series['Tecnico'], series['DataRetirada'], series['DataPrevisaoDevolucao'],
+            series['DataDevolucao']))
+
+
 df = pd.read_csv(arquivoReservas, na_filter=False)
 for row, series in df.iterrows():
     treetelaRelatorioEmprestimo.insert(parent='', index='end', iid=row, text='', values=(
-        series['Ferramenta'], series['Tecnico'], series['DataRetirada'], series['DataPrevisaoDevolucao'],
+        series['ID'],series['Ferramenta'], series['Tecnico'], series['DataRetirada'], series['DataPrevisaoDevolucao'],
         series['DataDevolucao']))
 
 
@@ -2379,6 +2427,49 @@ def selecionaEmprestimo(event):
 
 treetelaRelatorioEmprestimo.bind('<<TreeviewSelect>>', selecionaEmprestimo)
 treetelaRelatorioEmprestimo.place(relx=0.0, rely=0.091, height=280, width=1920)
+
+telaRelatorioEmprestimo.btnOrdernarData = Button(telaRelatorioEmprestimo)
+telaRelatorioEmprestimo.btnOrdernarData.place(relx=0.37, rely=0.380, height=30, width=100)
+telaRelatorioEmprestimo.btnOrdernarData.configure(activebackground="beige")
+telaRelatorioEmprestimo.btnOrdernarData.configure(activeforeground="black")
+telaRelatorioEmprestimo.btnOrdernarData.configure(background="#d9d9d9")
+telaRelatorioEmprestimo.btnOrdernarData.configure(command=lambda: listaDadosRelatorio('DataRetirada'))
+telaRelatorioEmprestimo.btnOrdernarData.configure(compound='left')
+telaRelatorioEmprestimo.btnOrdernarData.configure(disabledforeground="#a3a3a3")
+telaRelatorioEmprestimo.btnOrdernarData.configure(foreground="#000000")
+telaRelatorioEmprestimo.btnOrdernarData.configure(highlightbackground="#d9d9d9")
+telaRelatorioEmprestimo.btnOrdernarData.configure(highlightcolor="black")
+telaRelatorioEmprestimo.btnOrdernarData.configure(pady="0")
+telaRelatorioEmprestimo.btnOrdernarData.configure(text='''Ordernar p/ Data''')
+
+telaRelatorioEmprestimo.btnOrdernarId = Button(telaRelatorioEmprestimo)
+telaRelatorioEmprestimo.btnOrdernarId.place(relx=0.47, rely=0.380, height=30, width=100)
+telaRelatorioEmprestimo.btnOrdernarId.configure(activebackground="beige")
+telaRelatorioEmprestimo.btnOrdernarId.configure(activeforeground="black")
+telaRelatorioEmprestimo.btnOrdernarId.configure(background="#d9d9d9")
+telaRelatorioEmprestimo.btnOrdernarId.configure(command=lambda: listaDadosRelatorio('ID'))
+telaRelatorioEmprestimo.btnOrdernarId.configure(compound='left')
+telaRelatorioEmprestimo.btnOrdernarId.configure(disabledforeground="#a3a3a3")
+telaRelatorioEmprestimo.btnOrdernarId.configure(foreground="#000000")
+telaRelatorioEmprestimo.btnOrdernarId.configure(highlightbackground="#d9d9d9")
+telaRelatorioEmprestimo.btnOrdernarId.configure(highlightcolor="black")
+telaRelatorioEmprestimo.btnOrdernarId.configure(pady="0")
+telaRelatorioEmprestimo.btnOrdernarId.configure(text='''Ordernar p/ ID''')
+
+telaRelatorioEmprestimo.btnExportar = Button(telaRelatorioEmprestimo)
+telaRelatorioEmprestimo.btnExportar.place(relx=0.57, rely=0.380, height=30, width=100)
+telaRelatorioEmprestimo.btnExportar.configure(activebackground="beige")
+telaRelatorioEmprestimo.btnExportar.configure(activeforeground="black")
+telaRelatorioEmprestimo.btnExportar.configure(background="#d9d9d9")
+telaRelatorioEmprestimo.btnExportar.configure(command=lambda: exportarRelatorioEmprestimo())
+telaRelatorioEmprestimo.btnExportar.configure(compound='left')
+telaRelatorioEmprestimo.btnExportar.configure(disabledforeground="#a3a3a3")
+telaRelatorioEmprestimo.btnExportar.configure(foreground="#000000")
+telaRelatorioEmprestimo.btnExportar.configure(highlightbackground="#d9d9d9")
+telaRelatorioEmprestimo.btnExportar.configure(highlightcolor="black")
+telaRelatorioEmprestimo.btnExportar.configure(pady="0")
+telaRelatorioEmprestimo.btnExportar.configure(text='''Exportar''')
+
 
 # ======== Fim Relatorio Emprestimo ==========
 
