@@ -59,7 +59,7 @@ show_frame(telaLogin)
 # ============= Inicio Tela de Login =========
 
 telaLogin.Label1 = Label(telaLogin)
-telaLogin.Label1.place(relx=0.0, rely=0.0, height=63, width=1920)
+telaLogin.Label1.place(relx=0.0, rely=0.0, height=43, width=1920)
 telaLogin.Label1.configure(background="#949494")
 telaLogin.Label1.configure(anchor='center')
 telaLogin.Label1.configure(compound='left')
@@ -79,9 +79,8 @@ telaLogin.Label2.configure(foreground="#000000")
 telaLogin.Label2.configure(text='''Digite o login e senha para acesso ao sistema''')
 
 img = Image.open("logo.jpg")
-img = img.resize((160, 128))
 photo = ImageTk.PhotoImage(img)
-telaLogin.Imagem = Label(image=photo).place(x=890,y=250)
+telaLogin.Imagem = Label(image=photo).place(relx=0.46, rely=0.213)
 
 telaLogin.lblLogin = Label(telaLogin)
 telaLogin.lblLogin.place(relx=0.328, rely=0.423, height=21, width=44)
@@ -119,7 +118,7 @@ telaLogin.entSenha.configure(insertbackground="black")
 telaLogin.entSenha.insert(0, '1234')
 
 telaLogin.btnAcessar = Button(telaLogin)
-telaLogin.btnAcessar.place(relx=0.62, rely=0.492, height=24, width=47)
+telaLogin.btnAcessar.place(relx=0.61, rely=0.492, height=24, width=47)
 telaLogin.btnAcessar.configure(activebackground="beige")
 telaLogin.btnAcessar.configure(activeforeground="black")
 telaLogin.btnAcessar.configure(background="#d9d9d9")
@@ -414,7 +413,7 @@ telaFerramenta.entTamanho.configure(foreground="#000000")
 telaFerramenta.entTamanho.configure(insertbackground="black")
 telaFerramenta.entTamanho.configure(state="disabled")
 
-unidadeMedida = ['centrimetros', 'polegadas', 'metros']
+unidadeMedida = ['centimetros', 'polegadas', 'metros']
 telaFerramenta.lblUnidade = Label(telaFerramenta)
 telaFerramenta.lblUnidade.place(relx=0.328, rely=0.675, height=21, width=80)
 telaFerramenta.lblUnidade.configure(anchor='w')
@@ -769,7 +768,7 @@ treeTecnico.heading("CPF", text="CPF", anchor=W)
 treeTecnico.heading("Nome", text="Nome", anchor=W)
 treeTecnico.heading("Telefone", text="Telefone/Radio", anchor=W)
 treeTecnico.heading("Turno", text="Turno", anchor=W)
-treeTecnico.heading("NomeEquipe", text="Nome Equipe", anchor=W)
+treeTecnico.heading("NomeEquipe", text="Equipe", anchor=W)
 
 df = pd.read_csv(arquivoTecnicos, na_filter=False)
 for row, series in df.iterrows():
@@ -964,7 +963,7 @@ telaTecnico.lblNomeEquipe.configure(anchor='w')
 telaTecnico.lblNomeEquipe.configure(compound='left')
 telaTecnico.lblNomeEquipe.configure(disabledforeground="#a3a3a3")
 telaTecnico.lblNomeEquipe.configure(foreground="#000000")
-telaTecnico.lblNomeEquipe.configure(text='''Nome:''')
+telaTecnico.lblNomeEquipe.configure(text='''Equipe:''')
 telaTecnico.entNomeEquipe = Entry(telaTecnico)
 telaTecnico.entNomeEquipe.place(relx=0.382, rely=0.635, height=20, relwidth=0.200)
 telaTecnico.entNomeEquipe.configure(background="white")
@@ -2162,8 +2161,8 @@ def editarEmprestimo():
 
             telaEmprestimo.entID.insert(0, values[0])
             telaEmprestimo.entID.configure(state="disabled")
-            telaEmprestimo.comboTecnico.insert(0, values[1])
-            telaEmprestimo.comboFerramenta.insert(0, values[2])
+            telaEmprestimo.comboTecnico.insert(1, values[2])
+            telaEmprestimo.comboFerramenta.insert(1, values[1])
             telaEmprestimo.entDataRetirada.insert(0, values[3])
             telaEmprestimo.entDataPrevisaoDevolucao.insert(0, values[4])
             telaEmprestimo.entDataDevolucao.insert(0, values[5])
@@ -2287,11 +2286,10 @@ def deletarEmprestimo():
         clicaritem = treeEmprestimo.focus()
         valor = treeEmprestimo.item(clicaritem)
         lista_valores = valor['values']
-        valornormal = lista_valores[0] - 1
+        valornormal = lista_valores[-0] - 1
         df_s = df.drop(df.index[valornormal])
         df_s.to_csv(arquivoReservas, index=False)
         treeEmprestimo.delete(*treeEmprestimo.get_children())
-        df = pd.read_csv(arquivoReservas, na_filter=False)
         df = pd.read_csv(arquivoReservas, na_filter=False)
         for row, series in df.iterrows():
             treeEmprestimo.insert(parent='', index='end', iid=row, text='', values=(
@@ -2344,6 +2342,43 @@ telaRelatorioEmprestimo.Label1.configure(font="-family {Segoe UI} -size 14 -weig
 telaRelatorioEmprestimo.Label1.configure(foreground="#000000")
 telaRelatorioEmprestimo.Label1.configure(highlightcolor="#ffffff")
 telaRelatorioEmprestimo.Label1.configure(text='''Tela de Relatório de Emprestimo de Ferramenta''')
+
+### treeview
+
+#telaRelatorioEmprestimo
+
+
+colunasRelatorioEmprestimo = ( 'Ferramenta', 'Tecnico', 'DataRetirada', 'DataPrevisaoDevolucao', 'DataDevolucao')
+treetelaRelatorioEmprestimo = ttk.Treeview(telaRelatorioEmprestimo, columns=colunasRelatorioEmprestimo, show='headings')
+scrollbar = ttk.Scrollbar(telaRelatorioEmprestimo,
+                          orient="vertical",
+                          command=treetelaRelatorioEmprestimo.yview)
+scrollbar.place(relx=0.99, rely=0.091, height=280, width=20)
+treetelaRelatorioEmprestimo.configure(xscrollcommand=scrollbar.set)
+
+# define headings
+#treetelaRelatorioEmprestimo.heading("ID", text="ID", anchor=W)
+treetelaRelatorioEmprestimo.heading("Ferramenta", text="Ferramenta", anchor=W)
+treetelaRelatorioEmprestimo.heading("Tecnico", text="Tecnico", anchor=W)
+treetelaRelatorioEmprestimo.heading("DataRetirada", text="Data Retirada", anchor=W)
+treetelaRelatorioEmprestimo.heading("DataPrevisaoDevolucao", text="Data Previsão Devolução", anchor=W)
+treetelaRelatorioEmprestimo.heading("DataDevolucao", text="Data Devolução", anchor=W)
+
+df = pd.read_csv(arquivoReservas, na_filter=False)
+for row, series in df.iterrows():
+    treetelaRelatorioEmprestimo.insert(parent='', index='end', iid=row, text='', values=(
+        series['Ferramenta'], series['Tecnico'], series['DataRetirada'], series['DataPrevisaoDevolucao'],
+        series['DataDevolucao']))
+
+
+def selecionaEmprestimo(event):
+    for selected_item in treetelaRelatorioEmprestimo.selection():
+        item = treetelaRelatorioEmprestimo.item(selected_item)
+        record = item['values']
+
+
+treetelaRelatorioEmprestimo.bind('<<TreeviewSelect>>', selecionaEmprestimo)
+treetelaRelatorioEmprestimo.place(relx=0.0, rely=0.091, height=280, width=1920)
 
 # ======== Fim Relatorio Emprestimo ==========
 
