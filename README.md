@@ -1,16 +1,11 @@
-<!-- 
-<h4 align="center"> 
-	🚧  Projeto  🚧
-</h4> 
-<hr> -->
-<p></p>
-<img src="https://estacio.br/assets/imgs/header/logo-black.svg" style="display: block; width: 25%; margin-left: auto; margin-right: auto"/>
- 
-<h1 align="center" style="margin-bottom: -30px;">Ferramentário - Controle de Aluguel de Ferramentas</h1>
+ <p></p>
+ <img src="https://estacio.br/assets/imgs/header/logo-black.svg" style="display: block; width: 25%; margin-left: auto; margin-right: auto"/>
+ <h1 align="center" style="margin-top: -5px; margin-bottom: -30px;">Ferramentária - Controle de Aluguel de Ferramentas</h1>
  <h2 align="center" style="margin-bottom: -20px;">Faculdade Estácio de Sá</h2>
  <h3 align="center">Curso Desenvolvimento Full Stack</h3>
  <h4 align="center">Turma: 2022.2 - 1°Semestre </h4>
  <h5 align="center">Grupo DevTeam 10 </h5>
+ <h5 align="center"><a href="https://youtu.be/qx0mgKRUd7I" target="_blank">Link para o video no youtube</a></h5>
 
 <p align="center">
   <a href="#dart-sobre">Sobre</a> &#xa0; | &#xa0; 
@@ -41,10 +36,6 @@
     
     FELIPE MARQUES DE SOUZA
     202204343517
-    
-    
-   
-
 ```
 
 ## :sparkles: Funcionalidades ##
