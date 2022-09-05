@@ -80,7 +80,7 @@ telaLogin.Label2.configure(disabledforeground="#a3a3a3")
 telaLogin.Label2.configure(foreground="#000000")
 telaLogin.Label2.configure(text='''Digite o login e senha para acesso ao sistema''')
 
-img = Image.open("logo.jpg")
+img = Image.open("logo.png")
 photo = ImageTk.PhotoImage(img)
 telaLogin.Imagem = Label(image=photo).place(relx=0.46, rely=0.213)
 

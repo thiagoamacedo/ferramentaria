@@ -1,2 +1,6 @@
 ID,Descricao,Fabricante,Voltagem,PartNumber,Tamanho,Unidade,Tipo,Material,TempoMaximoReserva
-1,Ferramenta 1,nada,23.0,nadads,23.0,metros,mecânica,madeira,72
+1,Alicate,ND,0.0,1.0,15.0,centimetros,mecânica,ferro,12
+2,Martelo,ND,0.0,2.0,15.0,centimetros,mecânica,ferro,10.0
+3,Compressor de Ar,ND,110.0,3.0,50.0,centimetros,elêtrica,ferro,10.0
+4,Capacete,ND,0.0,4.0,56.0,centimetros,segurança,plastico,24.0
+5,Bota,ND,0.0,5.0,42.0,centimetros,segurança,borracha,0.0

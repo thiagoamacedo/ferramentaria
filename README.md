@@ -3,10 +3,14 @@
 	🚧  Projeto  🚧
 </h4> 
 <hr> -->
-
- <h1 align="center" style="margin-bottom: -30px;">Ferramentário - Controle de Aluguel de Ferramentas</h1>
+<p></p>
+<img src="https://estacio.br/assets/imgs/header/logo-black.svg" style="display: block; width: 25%; margin-left: auto; margin-right: auto"/>
+ 
+<h1 align="center" style="margin-bottom: -30px;">Ferramentário - Controle de Aluguel de Ferramentas</h1>
  <h2 align="center" style="margin-bottom: -20px;">Faculdade Estácio de Sá</h2>
- <h3 align="center">Turma: 2022.2</h3>
+ <h3 align="center">Curso Desenvolvimento Full Stack</h3>
+ <h4 align="center">Turma: 2022.2 - 1°Semestre </h4>
+ <h5 align="center">Grupo DevTeam 10 </h5>
 
 <p align="center">
   <a href="#dart-sobre">Sobre</a> &#xa0; | &#xa0; 
@@ -24,7 +28,6 @@
 ## :dart: Sobre ##
 
 ```sh
-• explanar a ideia do projeto.
 • Alunos participantes do projeto por nome e matricula
 
     TEREZA CRISTINA RIBEIRO DE CARVALHO CORREIA
@@ -36,14 +39,30 @@
     JANDER DE CASTRO CUNHA JÚNIOR
     202205112268
     
-    JFELIPE MARQUES DE SOUZA
+    FELIPE MARQUES DE SOUZA
     202204343517
+    
+    
+   
+
 ```
 
 ## :sparkles: Funcionalidades ##
 
 :heavy_check_mark: funcionalidades
 
+• Cadastro de tecnicos e Ferramentas para locação
+
+• Adicionar, Excluír e Editar cadastros de Tecnicos responsavéis
+
+• Adicionar, Editar e Excluír Ferramentas 
+
+• Exportar Relátorios para Arquivos XLS,
+    
+    Para controle do Administrador da aplicação.
+•Aplicação com Login e Senha.
+    
+    Para segurança do Administrador
 
 ## :rocket: Tecnologias ##
  
@@ -69,6 +88,9 @@ As seguintes bibliotecas e ferramentas 🛠 foram utilizadas na construção do 
        <tr>
           <td>Tkcalendar</td>
        </tr>    
+       <tr>
+          <td>Openpyxl</td>
+       </tr>
     </tbody>
 </table>
 
@@ -90,6 +112,7 @@ Antes de começar 🏁, você vai precisar ter instalado em sua máquina as sequ
  -> terminal -> pip install pillow
  -> terminal -> pip install pandas
  -> terminal -> pip install tkcalendar
+ -> terminal -> pip install openpyxl
  
 ```
 
