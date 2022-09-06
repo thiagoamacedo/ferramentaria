@@ -1,5 +1,5 @@
  <p></p>
- <img src="https://estacio.br/assets/imgs/header/logo-black.svg" style="display: block; width: 25%; margin-left: auto; margin-right: auto"/>
+ <img src="logo.png" style="display: block; width: 25%; margin-left: auto; margin-right: auto"/>
  <h1 align="center" style="margin-top: -5px; margin-bottom: -30px;">Ferramentária - Controle de Aluguel de Ferramentas</h1>
  <h2 align="center" style="margin-bottom: -20px;">Faculdade Estácio de Sá</h2>
  <h3 align="center">Curso Desenvolvimento Full Stack</h3>
